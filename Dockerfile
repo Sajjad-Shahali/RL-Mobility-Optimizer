@@ -12,7 +12,7 @@
 # NEXUS 2026 — Politecnico di Torino
 # ==============================================================================
 
-FROM python:3.11-slim AS base
+FROM python:3.14-slim AS base
 
 # Metadata
 LABEL maintainer="Team [NUMBER] — NEXUS 2026"
