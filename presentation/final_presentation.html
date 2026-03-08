@@ -88,7 +88,7 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 .team-info{font-size:14px;color:var(--text3);margin-top:4px}
 
 /* ===================== SLIDE 2 — MOCKUP ===================== */
-#s2{gap:36px}
+#s2{gap:14px;align-items:flex-start;padding-top:16px;padding-bottom:44px}
 #s2 .features{flex:1;max-width:360px;display:flex;flex-direction:column;gap:14px}
 .phone-frame{width:290px;min-width:290px;height:580px;border-radius:38px;border:4px solid var(--bg4);background:#1a1f2e;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.1),0 20px 60px rgba(0,0,0,.12)}
 .phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:24px;background:#1a1f2e;border-radius:0 0 14px 14px;z-index:2}
@@ -98,6 +98,15 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 .screen-header h4{font-size:15px;font-weight:700}
 .mock-card{background:#2a3450;border-radius:10px;padding:10px 12px;font-size:11px;color:#c8d3e0;display:flex;align-items:center;gap:10px}
 .mock-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+
+/* Screenshot grid */
+.ss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:720px}
+.ss-card{border-radius:12px;overflow:hidden;border:1px solid var(--glass-border);background:var(--bg2);transition:transform .3s,box-shadow .3s}
+.ss-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.ss-card img{width:100%;height:auto;display:block}
+.ss-caption{padding:8px 10px}
+.ss-caption h4{font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px}
+.ss-caption p{font-size:10px;color:var(--text3);line-height:1.4}
 .mock-bottom{display:flex;justify-content:space-around;padding:10px 0;margin-top:auto;border-top:1px solid rgba(148,163,184,.15)}
 .mock-tab{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:8px;color:#64748b}
 .mock-tab.active{color:#00d2eb}
@@ -109,49 +118,60 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 .tech-stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 
 /* ===================== SLIDE 3 — RESEARCH ===================== */
-#s3{align-items:flex-start;padding-top:22px;padding-bottom:54px;gap:18px}
-.chart-box{background:var(--bg2);border-radius:10px;padding:12px;border:1px solid var(--glass-border);position:relative}
-.chart-box canvas{max-height:140px}
-.profile-card{padding:12px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border)}
-.profile-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2);padding:4px 0}
-.profile-row .icon{font-size:14px;width:20px;text-align:center}
+#s3{align-items:flex-start;padding-top:18px;padding-bottom:50px;gap:16px}
+.chart-box{background:var(--bg2);border-radius:10px;padding:14px;border:1px solid var(--glass-border);position:relative}
+.chart-box canvas{max-height:160px}
+.profile-card{padding:14px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border)}
+.profile-row{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text2);padding:5px 0}
+.profile-row .icon{font-size:16px;width:22px;text-align:center}
 .corridor-map{position:relative;padding:14px 6px}
-.corridor-line{height:5px;background:linear-gradient(90deg,var(--red),var(--orange),var(--cyan),var(--green));border-radius:3px;position:relative;margin:22px 6px}
-.corridor-stop{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;border:2px solid var(--bg);z-index:2}
-.corridor-label{position:absolute;transform:translateX(-50%);font-size:10px;font-weight:600;white-space:nowrap}
+.corridor-line{height:6px;background:linear-gradient(90deg,var(--red),var(--orange),var(--cyan),var(--green));border-radius:3px;position:relative;margin:22px 6px}
+.corridor-stop{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;border:2.5px solid var(--bg);z-index:2}
+.corridor-label{position:absolute;transform:translateX(-50%);font-size:11px;font-weight:700;white-space:nowrap}
 .corridor-label.above{bottom:calc(100% + 10px)}
 .corridor-label.below{top:calc(100% + 10px)}
-.bench-table{width:100%;font-size:12px;border-collapse:separate;border-spacing:0 3px}
-.bench-table th{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);padding:4px 5px;text-align:center}
+.bench-table{width:100%;font-size:13px;border-collapse:separate;border-spacing:0 4px}
+.bench-table th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);padding:6px 6px;text-align:center;border-bottom:2px solid var(--bg3)}
 .bench-table th:first-child{text-align:left}
-.bench-table td{padding:5px;text-align:center;background:var(--bg2);font-size:12px}
-.bench-table td:first-child{text-align:left}
-.bench-table tr td:first-child{border-radius:3px 0 0 3px}
-.bench-table tr td:last-child{border-radius:0 3px 3px 0}
-.check{color:var(--green)}
-.cross{color:var(--text3);opacity:.4}
-.mw-col{background:rgba(5,150,105,.06)!important;font-weight:600}
-.ctx-card{padding:10px 12px;border-radius:7px;border-left:3px solid;font-size:12px;color:var(--text2);line-height:1.5;background:var(--bg2)}
-.ctx-card strong{color:var(--text);font-weight:600}
+.bench-table th:last-child{background:rgba(5,150,105,.06);border-radius:6px 6px 0 0;color:var(--green);font-weight:800}
+.bench-table td{padding:7px 6px;text-align:center;background:var(--bg2);font-size:13px}
+.bench-table td:first-child{text-align:left;font-weight:600;color:var(--text)}
+.bench-table tr td:first-child{border-radius:4px 0 0 4px}
+.bench-table tr td:last-child{border-radius:0 4px 4px 0}
+.check{color:var(--green);font-weight:700;font-size:15px}
+.cross{color:var(--red);opacity:.5;font-size:15px}
+.mw-col{background:rgba(5,150,105,.08)!important;font-weight:700;color:var(--green)}
+.ctx-card{padding:12px 14px;border-radius:8px;border-left:4px solid;font-size:13px;color:var(--text2);line-height:1.55;background:var(--bg2)}
+.ctx-card strong{color:var(--text);font-weight:700}
 .counter-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.counter-card{background:var(--bg2);border-radius:8px;padding:12px 10px;text-align:center;border:1px solid var(--glass-border)}
-.counter-val{font-size:26px;font-weight:800;line-height:1}
-.counter-lbl{font-size:10px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.counter-card{background:var(--bg2);border-radius:8px;padding:14px 10px;text-align:center;border:1px solid var(--glass-border)}
+.counter-val{font-size:28px;font-weight:800;line-height:1}
+.counter-lbl{font-size:11px;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.ref-item{font-size:12px;color:var(--text2);line-height:1.5;padding:4px 0;border-bottom:1px solid var(--glass-border)}
+.ref-item:last-child{border-bottom:none}
+.ref-item a{color:var(--cyan);text-decoration:none;font-weight:600}
+.ref-item a:hover{text-decoration:underline}
+.ref-item .ref-year{color:var(--text3);font-size:11px}
+.turin-stat{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--glass-border)}
+.turin-stat:last-child{border-bottom:none}
+.turin-stat .ts-icon{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.turin-stat .ts-val{font-size:16px;font-weight:800;color:var(--text);min-width:55px}
+.turin-stat .ts-lbl{font-size:12px;color:var(--text2);line-height:1.3}
 
 /* ===================== SLIDE 4 — PROJECT ===================== */
-#s4{align-items:flex-start;padding-top:22px;padding-bottom:54px;gap:18px}
-.formula-box{background:var(--bg2);border:1px solid var(--glass-border);border-radius:8px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:var(--text2);overflow-x:auto;white-space:nowrap}
+#s4{align-items:flex-start;padding-top:18px;padding-bottom:44px;gap:16px}
+.formula-box{background:var(--bg2);border:1px solid var(--glass-border);border-radius:8px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:var(--text2);overflow-x:auto;white-space:nowrap}
 .formula-box .hl{color:var(--cyan);font-weight:600}
 .formula-box .hg{color:var(--green);font-weight:600}
 .formula-box .ho{color:var(--orange);font-weight:600}
 .formula-box .hp{color:var(--purple);font-weight:600}
-.layer-card{border-radius:8px;padding:10px 12px;border-left:3px solid;background:var(--bg2);margin-bottom:6px}
-.layer-card h4{font-size:12px;font-weight:700;margin-bottom:3px}
-.layer-card p{font-size:11px;color:var(--text2);line-height:1.5}
+.layer-card{border-radius:8px;padding:8px 12px;border-left:3px solid;background:var(--bg2);margin-bottom:4px}
+.layer-card h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.layer-card p{font-size:12px;color:var(--text2);line-height:1.45}
 .phase-list{display:flex;flex-direction:column;gap:6px}
 .phase{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--bg2);border:1px solid var(--glass-border)}
-.phase-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
-.phase-body{font-size:12px;color:var(--text2);line-height:1.45}
+.phase-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+.phase-body{font-size:13px;color:var(--text2);line-height:1.45}
 .phase-body strong{color:var(--text)}
 .arch-block{display:flex;flex-direction:column;align-items:center;gap:4px}
 .arch-node{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:10px;font-weight:700;border:1px solid;width:100%;justify-content:center}
@@ -191,9 +211,9 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 .bg-grid::before{content:'';position:absolute;inset:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(8,145,178,.03) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(5,150,105,.02) 0%,transparent 60%)}
 
 /* ─── Scrollbar ─── */
-.scroll-col{max-height:calc(100vh - 80px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bg4) transparent}
-.scroll-col::-webkit-scrollbar{width:4px}
-.scroll-col::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.scroll-col{max-height:calc(100vh - 80px);overflow:hidden;scrollbar-width:none}
+.scroll-col::-webkit-scrollbar{display:none}
+.scroll-col::-webkit-scrollbar-thumb{display:none}
 
 /* ─── Print / Export capture ─── */
 .slide-capture{position:absolute;left:-9999px;top:0;width:1920px;height:1080px;overflow:hidden}
@@ -284,150 +304,111 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
     <div class="team-info" style="margin-top:6px">
       <span style="color:var(--text2);font-weight:600">Team MoveWise</span>&nbsp;&nbsp;·&nbsp;&nbsp;BEST Politecnico di Torino&nbsp;&nbsp;·&nbsp;&nbsp;March 7–8, 2026
     </div>
+
+    <!-- Key stats bar -->
+    <div style="display:flex;gap:24px;margin-top:10px;flex-wrap:wrap;justify-content:center">
+      <div style="text-align:center;padding:10px 20px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border);min-width:120px">
+        <div style="font-size:26px;font-weight:800;color:var(--red)">170 g</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">CO₂/pkm by Car</div>
+      </div>
+      <div style="text-align:center;padding:10px 20px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border);min-width:120px">
+        <div style="font-size:26px;font-weight:800;color:var(--green)">14 g</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">CO₂/pkm by Train</div>
+      </div>
+      <div style="text-align:center;padding:10px 20px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border);min-width:120px">
+        <div style="font-size:26px;font-weight:800;color:var(--orange)">€510</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">True Car Cost/mo</div>
+      </div>
+      <div style="text-align:center;padding:10px 20px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border);min-width:120px">
+        <div style="font-size:26px;font-weight:800;color:var(--cyan)">−80%</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">CO₂ Reduction</div>
+      </div>
+      <div style="text-align:center;padding:10px 20px;border-radius:10px;background:var(--bg2);border:1px solid var(--glass-border);min-width:120px">
+        <div style="font-size:26px;font-weight:800;color:var(--purple)">100K+</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">Target Students</div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ━━━━━━━━ SLIDE 2 — PHOTO / MOCKUP ━━━━━━━━ -->
+<!-- ━━━━━━━━ SLIDE 2 — APP SCREENSHOTS ━━━━━━━━ -->
 <div class="slide" id="s2">
-  <div class="features" style="margin-right:10px">
-    <h3>App Experience</h3>
-    <h2>MoveWise Super‑App</h2>
-    <p class="sm">A one‑stop mobility ecosystem — route planning, integrated QR payment, insurance, carpooling, gamification, and AI‑powered nudges — all in one interface.</p>
+  <div class="cols" style="align-items:flex-start;gap:16px">
+    <!-- Left Column: Title + Screenshots -->
+    <div class="col" style="flex:2.4;gap:8px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="flex:1">
+          <h3 style="font-size:13px;margin-bottom:2px">App Experience</h3>
+          <h2 style="margin-top:0;font-size:22px">MoveWise Super‑App</h2>
+          <p style="font-size:12px;color:var(--text2);line-height:1.4;margin-top:2px">One‑stop mobility ecosystem — route planning, QR payment, insurance, carpooling, gamification &amp; AI nudges.</p>
+        </div>
+        <a href="https://sajjad-shahali.github.io/RL-Mobility-Optimizer/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--green));color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 4px 16px rgba(8,145,178,.3);flex-shrink:0">
+          🚀 Live Demo — Working &amp; Ready
+        </a>
+      </div>
 
-    <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
-      <div class="feature-item"><div class="fbullet" style="background:var(--cyan)"></div><div class="ftext"><strong>Smart Route AI:</strong> RL‑personalized intermodal suggestions that learn user preferences over time</div></div>
-      <div class="feature-item"><div class="fbullet" style="background:var(--green)"></div><div class="ftext"><strong>QR Tap‑In/Out:</strong> Rejsekort‑inspired contactless payment across all transport modes</div></div>
-      <div class="feature-item"><div class="fbullet" style="background:var(--purple)"></div><div class="ftext"><strong>Insurance Hub:</strong> Competitive travel &amp; car insurance — the Trojan Horse for car users</div></div>
-      <div class="feature-item"><div class="fbullet" style="background:var(--orange)"></div><div class="ftext"><strong>Gamification:</strong> Green points, leaderboards, streaks &amp; badges drive behavior change</div></div>
-      <div class="feature-item"><div class="fbullet" style="background:var(--red)"></div><div class="ftext"><strong>Carbon Tracker:</strong> Real‑time CO₂ impact visualization creates awareness</div></div>
-    </div>
+      <!-- Screenshot Grid: 3x2 compact -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div class="ss-card"><img src="screenshot/home.png" alt="Home"><div class="ss-caption"><h4>🏠 Home Dashboard</h4><p>Carbon tracker, streaks &amp; green impact</p></div></div>
+        <div class="ss-card"><img src="screenshot/route-planner.png" alt="Route"><div class="ss-caption"><h4>🗺 Route Planner</h4><p>RL‑powered intermodal suggestions</p></div></div>
+        <div class="ss-card"><img src="screenshot/qr-payment.png" alt="QR"><div class="ss-caption"><h4>💳 QR Tap‑In/Out</h4><p>Contactless multi‑modal payment</p></div></div>
+        <div class="ss-card"><img src="screenshot/insurance.png" alt="Insurance"><div class="ss-caption"><h4>🛡️ Insurance Hub</h4><p>Car‑user onboarding Trojan Horse</p></div></div>
+        <div class="ss-card"><img src="screenshot/carpooling.png" alt="Carpool"><div class="ss-caption"><h4>🚗 Carpooling</h4><p>Peer matching &amp; shared rides</p></div></div>
+        <div class="ss-card"><img src="screenshot/map.png" alt="Map"><div class="ss-caption"><h4>📍 Live Map</h4><p>Real‑time transit &amp; micromobility</p></div></div>
+      </div>
 
-    <div style="margin-top:8px">
-      <h3 style="font-size:12px;margin-bottom:6px">Tech Stack</h3>
-      <div class="tech-stack">
-        <span class="tag tag-cyan">React</span>
-        <span class="tag tag-green">Python / FastAPI</span>
-        <span class="tag tag-purple">Deep Q‑Learning</span>
-        <span class="tag tag-orange">Prospect Theory</span>
-        <span class="tag tag-red">Nudge AI</span>
+      <!-- Compact tags row -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="tag tag-cyan" style="font-size:10px;padding:3px 10px">React</span>
+        <span class="tag tag-green" style="font-size:10px;padding:3px 10px">FastAPI</span>
+        <span class="tag tag-purple" style="font-size:10px;padding:3px 10px">Deep Q‑Learning</span>
+        <span class="tag tag-orange" style="font-size:10px;padding:3px 10px">PyTorch</span>
+        <span class="tag tag-red" style="font-size:10px;padding:3px 10px">Chart.js</span>
+        <span class="tag tag-cyan" style="font-size:10px;padding:3px 10px">Docker</span>
       </div>
     </div>
-  </div>
 
-  <!-- Phone mockup -->
-  <div class="phone-frame">
-    <div class="phone-notch"></div>
-    <div class="phone-screen">
-      <div class="screen-mock">
-        <div class="screen-header">
-          <div>
-            <div style="font-size:10px;color:#94a3b8">Good morning</div>
-            <h4 style="color:#e2e8f0">Giuseppe 👋</h4>
-          </div>
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00d2eb,#34d399);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">G</div>
-        </div>
-
-        <!-- Carbon card -->
-        <div style="background:linear-gradient(135deg,rgba(0,210,235,.12),rgba(52,211,153,.08));border-radius:12px;padding:12px;border:1px solid rgba(0,210,235,.15)">
-          <div style="font-size:9px;color:#00d2eb;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Your Impact This Month</div>
-          <div style="display:flex;align-items:baseline;gap:6px;margin-top:4px">
-            <span style="font-size:26px;font-weight:800;color:#34d399">18.4</span>
-            <span style="font-size:11px;color:#94a3b8">kg CO₂ saved</span>
-          </div>
-          <div style="height:4px;border-radius:2px;background:#2a3450;margin-top:6px"><div style="height:100%;width:73%;border-radius:2px;background:linear-gradient(90deg,#00d2eb,#34d399)"></div></div>
-          <div style="font-size:8px;color:#64748b;margin-top:3px">73% of monthly goal · 🔥 5‑day streak</div>
-        </div>
-
-        <!-- Quick actions -->
-        <div style="display:flex;gap:6px">
-          <div style="flex:1;background:#2a3450;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:16px">🚆</div>
-            <div style="font-size:8px;color:#94a3b8;margin-top:2px">Plan Trip</div>
-          </div>
-          <div style="flex:1;background:#2a3450;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:16px">💳</div>
-            <div style="font-size:8px;color:#94a3b8;margin-top:2px">QR Pay</div>
-          </div>
-          <div style="flex:1;background:#2a3450;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:16px">🛡️</div>
-            <div style="font-size:8px;color:#94a3b8;margin-top:2px">Insurance</div>
-          </div>
-          <div style="flex:1;background:#2a3450;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:16px">🏆</div>
-            <div style="font-size:8px;color:#94a3b8;margin-top:2px">Rankings</div>
-          </div>
-        </div>
-
-        <!-- Route suggestion -->
-        <div class="mock-card">
-          <div class="mock-icon" style="background:rgba(52,211,153,.15);color:#34d399">🚄</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:600;color:#e2e8f0">Recommended: Train + Walk</div>
-            <div style="font-size:9px;color:#64748b;margin-top:1px">30 min · €2.50 · −75% CO₂</div>
-          </div>
-          <span class="tag tag-green" style="font-size:7px">BEST FOR YOU</span>
-        </div>
-
-        <div class="mock-card">
-          <div class="mock-icon" style="background:rgba(0,210,235,.15);color:#00d2eb">🛴</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:600;color:#e2e8f0">E‑Scooter → Train → Walk</div>
-            <div style="font-size:9px;color:#64748b;margin-top:1px">28 min · €3.20 · −80% CO₂</div>
-          </div>
-        </div>
-
-        <div class="mock-card">
-          <div class="mock-icon" style="background:rgba(167,139,250,.15);color:#a78bfa">🚗</div>
-          <div style="flex:1">
-            <div style="font-size:11px;font-weight:600;color:#e2e8f0">Carpool (3 riders)</div>
-            <div style="font-size:9px;color:#64748b;margin-top:1px">25 min · €1.80 · −50% CO₂</div>
-          </div>
-        </div>
-
-        <!-- Tab bar -->
-        <div class="mock-bottom">
-          <div class="mock-tab active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</div>
-          <div class="mock-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Trips</div>
-          <div class="mock-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Pay</div>
-          <div class="mock-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Profile</div>
-        </div>
+    <!-- Right Column: Architecture + How it works + Key features -->
+    <div class="col" style="flex:1;gap:8px">
+      <h3 style="font-size:12px;margin-bottom:0">Architecture</h3>
+      <div style="display:flex;flex-direction:column;gap:3px;align-items:center">
+        <div style="padding:5px 10px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(8,145,178,.25);color:var(--cyan);background:rgba(8,145,178,.06);width:100%;text-align:center">📱 React UI — MoveWise App</div>
+        <div style="font-size:10px;color:var(--text3)">↕</div>
+        <div style="padding:5px 10px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(5,150,105,.25);color:var(--green);background:rgba(5,150,105,.06);width:100%;text-align:center">⚡ FastAPI Backend</div>
+        <div style="font-size:10px;color:var(--text3)">↕</div>
+        <div style="padding:5px 10px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(124,58,237,.25);color:var(--purple);background:rgba(124,58,237,.06);width:100%;text-align:center">🧠 Deep Q‑Learning RL Engine</div>
+        <div style="font-size:10px;color:var(--text3)">↕</div>
+        <div style="padding:5px 10px;border-radius:6px;font-size:10px;font-weight:700;border:1px solid rgba(217,119,6,.25);color:var(--orange);background:rgba(217,119,6,.06);width:100%;text-align:center">📊 QR Data + Behavioral Model</div>
       </div>
-    </div>
-  </div>
 
-  <div class="features" style="margin-left:10px">
-    <h3>Architecture</h3>
-    <div style="display:flex;flex-direction:column;gap:5px;align-items:center">
-      <div style="padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(8,145,178,.25);color:var(--cyan);background:rgba(8,145,178,.06);width:100%;text-align:center">📱 React UI — MoveWise App</div>
-      <div style="font-size:14px;color:var(--text3)">↕</div>
-      <div style="padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(5,150,105,.25);color:var(--green);background:rgba(5,150,105,.06);width:100%;text-align:center">⚡ FastAPI Backend</div>
-      <div style="font-size:14px;color:var(--text3)">↕</div>
-      <div style="padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(124,58,237,.25);color:var(--purple);background:rgba(124,58,237,.06);width:100%;text-align:center">🧠 Deep Q‑Learning RL Engine</div>
-      <div style="font-size:14px;color:var(--text3)">↕</div>
-      <div style="padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(217,119,6,.25);color:var(--orange);background:rgba(217,119,6,.06);width:100%;text-align:center">📊 QR Data + Behavioral Model</div>
-    </div>
+      <h3 style="font-size:12px;margin:0">How It Works</h3>
+      <div style="display:flex;flex-direction:column;gap:3px">
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:20px;height:20px;border-radius:50%;background:rgba(8,145,178,.1);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">1</span>User scans QR at trip start (tap‑in)</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:20px;height:20px;border-radius:50%;background:rgba(5,150,105,.1);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">2</span>RL agent observes mode, time, cost</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:20px;height:20px;border-radius:50%;background:rgba(124,58,237,.1);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">3</span>Personalized route + nudge</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:20px;height:20px;border-radius:50%;background:rgba(217,119,6,.1);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">4</span>Gamification rewards green choices</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)"><span style="width:20px;height:20px;border-radius:50%;background:rgba(220,38,38,.1);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">5</span>Agent improves via continuous learning</div>
+      </div>
 
-    <h3 style="margin-top:12px">How It Works</h3>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)">
-        <span style="width:24px;height:24px;border-radius:50%;background:rgba(8,145,178,.1);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</span>
-        User scans QR at trip start (tap‑in)
+      <h3 style="font-size:12px;margin:0">Key Features</h3>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <div class="feature-item"><div class="fbullet" style="background:var(--cyan)"></div><div class="ftext" style="font-size:11px"><strong>Smart Route AI:</strong> RL‑personalized suggestions</div></div>
+        <div class="feature-item"><div class="fbullet" style="background:var(--green)"></div><div class="ftext" style="font-size:11px"><strong>QR Tap‑In/Out:</strong> Multi‑modal payment</div></div>
+        <div class="feature-item"><div class="fbullet" style="background:var(--purple)"></div><div class="ftext" style="font-size:11px"><strong>Insurance Hub:</strong> Onboarding funnel</div></div>
+        <div class="feature-item"><div class="fbullet" style="background:var(--orange)"></div><div class="ftext" style="font-size:11px"><strong>Gamification:</strong> Points &amp; leaderboards</div></div>
+        <div class="feature-item"><div class="fbullet" style="background:var(--red)"></div><div class="ftext" style="font-size:11px"><strong>Carbon Tracker:</strong> Real‑time CO₂ viz</div></div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)">
-        <span style="width:24px;height:24px;border-radius:50%;background:rgba(5,150,105,.1);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</span>
-        RL agent observes mode, time, cost data
+
+      <!-- Compact data card -->
+      <div class="card" style="padding:8px 12px">
+        <div style="font-size:11px;font-weight:600;margin-bottom:2px">📊 Data Per Trip</div>
+        <div style="font-size:10px;color:var(--text2);line-height:1.4">Mode · GPS · Travel Time · Price · Time of Day · Weather · Segments</div>
       </div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)">
-        <span style="width:24px;height:24px;border-radius:50%;background:rgba(124,58,237,.1);color:var(--purple);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</span>
-        Personalized route + nudge recommended
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)">
-        <span style="width:24px;height:24px;border-radius:50%;background:rgba(217,119,6,.1);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</span>
-        Gamification rewards sustainable choices
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)">
-        <span style="width:24px;height:24px;border-radius:50%;background:rgba(220,38,38,.1);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">5</span>
-        Agent improves via continuous learning
+
+      <!-- Adoption chart -->
+      <div class="chart-box" style="padding:8px">
+        <div style="font-size:11px;font-weight:600;margin-bottom:4px">📈 Projected User Adoption</div>
+        <canvas id="chartAdoption" height="90"></canvas>
       </div>
     </div>
   </div>
@@ -435,20 +416,21 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 
 <!-- ━━━━━━━━ SLIDE 3 — RESEARCH ━━━━━━━━ -->
 <div class="slide" id="s3">
-  <div class="cols" style="align-items:flex-start">
+  <div class="cols" style="align-items:flex-start;gap:18px">
     <!-- Column 1: Problem Analysis -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--red);padding-bottom:4px;color:var(--red)">Problem Analysis</h3>
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--red);padding-bottom:4px;color:var(--red);font-size:14px">Problem Analysis</h3>
 
-      <div class="profile-card">
-        <div style="font-size:14px;font-weight:700;margin-bottom:6px">👤 Giuseppe — User Profile</div>
-        <div class="profile-row"><span class="icon">🎓</span>23‑yr‑old medical student</div>
-        <div class="profile-row"><span class="icon">🚗</span>Commute: Caselle → Orbassano (3×/wk, passenger)</div>
-        <div class="profile-row"><span class="icon">⏱</span>45 min travel · €60/mo cost</div>
-        <div class="profile-row"><span class="icon">🛒</span>Shopping/errands: 3×/wk — drives alone</div>
-        <div class="profile-row"><span class="icon">🎭</span>Leisure: 2×/wk — drives alone</div>
-        <div class="profile-row"><span class="icon">💰</span>WTP: €15/mo extra for 30% less pollution</div>
-        <div class="profile-row"><span class="icon">🌱</span>Values sustainability &amp; safety</div>
+      <div class="profile-card" style="padding:12px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">👤 Giuseppe — User Profile</div>
+        <div class="profile-row"><span class="icon">🎓</span><strong>23‑yr‑old</strong> medical student</div>
+        <div class="profile-row"><span class="icon">🚗</span>Caselle → Orbassano · <strong>3×/wk</strong> · passenger</div>
+        <div class="profile-row"><span class="icon">⏱</span><strong>45 min</strong> travel · <strong>€60/mo</strong> perceived cost</div>
+        <div class="profile-row"><span class="icon">🛒</span>Shopping/errands: <strong>3×/wk</strong> — drives alone</div>
+        <div class="profile-row"><span class="icon">🎭</span>Leisure: <strong>2×/wk</strong> — drives alone (100% emissions)</div>
+        <div class="profile-row"><span class="icon">💰</span>WTP: <strong>€15/mo extra</strong> for 30% less pollution</div>
+        <div class="profile-row"><span class="icon">📱</span>No current app usage — must be onboarded</div>
+        <div class="profile-row"><span class="icon">🌱</span>Values sustainability, safety &amp; convenience</div>
       </div>
 
       <div class="counter-grid">
@@ -458,82 +440,81 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
         <div class="counter-card"><div class="counter-val" style="color:var(--cyan)">€55</div><div class="counter-lbl">/mo PT Cost</div></div>
       </div>
 
-      <div class="ctx-card" style="border-left-color:var(--red)"><strong>Data Gap:</strong> Car‑only users generate zero digital traces in PT systems — chicken‑and‑egg problem</div>
-      <div class="ctx-card" style="border-left-color:var(--orange)"><strong>Behavioral Inertia:</strong> Car use is System 1 (automatic). Loss aversion = 2.25× — losses hurt more than equivalent gains</div>
-      <div class="ctx-card" style="border-left-color:var(--purple)"><strong>No Direct Route:</strong> Caselle → Orbassano has no single PT line — requires intermodal transfers</div>
+      <!-- Emissions comparison chart -->
+      <div class="chart-box">
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px">🌍 CO₂ Emissions by Mode (g/pkm)</div>
+        <canvas id="chartEmissions" height="130"></canvas>
+      </div>
     </div>
 
-    <!-- Column 2: Context & Corridor -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--cyan);padding-bottom:4px">Context &amp; Corridor</h3>
+    <!-- Column 2: Turin Context + Charts -->
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--cyan);padding-bottom:4px;font-size:14px">Turin Context</h3>
 
-      <!-- Corridor map -->
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">🗺 Caselle → Orbassano Corridor</div>
-        <div class="corridor-map">
-          <div class="corridor-line">
-            <div class="corridor-stop" style="left:0%;background:var(--red)"><span class="corridor-label above" style="color:var(--red)">Caselle T.</span></div>
-            <div class="corridor-stop" style="left:25%;background:var(--orange)"><span class="corridor-label below" style="color:var(--orange)">Venaria</span></div>
-            <div class="corridor-stop" style="left:50%;background:var(--cyan)"><span class="corridor-label above" style="color:var(--cyan)">Torino P.S.</span></div>
-            <div class="corridor-stop" style="left:75%;background:var(--purple)"><span class="corridor-label below" style="color:var(--purple)">Lingotto</span></div>
-            <div class="corridor-stop" style="left:100%;background:var(--green)"><span class="corridor-label above" style="color:var(--green)">Orbassano</span></div>
-          </div>
-        </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:8px">Operators: GTT (urban PT) · SFM (regional rail) · Trenitalia · Voi/Lime (micro‑mobility)</div>
+      <div class="chart-box">
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px">📊 Mode Split — Turin Metro Area</div>
+        <canvas id="chartMode" height="140"></canvas>
+      </div>
+
+      <!-- Turin Context stat cards -->
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">🏙 Turin Metropolitan Context</div>
+        <div class="turin-stat"><span class="ts-icon">🎓</span><span class="ts-val" style="color:var(--cyan)">100K+</span><span class="ts-lbl">University students (PoliTo + UniTo)</span></div>
+        <div class="turin-stat"><span class="ts-icon">🚗</span><span class="ts-val" style="color:var(--red)">58%</span><span class="ts-lbl">Private car mode share — highest EU peers</span></div>
+        <div class="turin-stat"><span class="ts-icon">🎯</span><span class="ts-val" style="color:var(--orange)">18–30</span><span class="ts-lbl">Target age: periurban commuters</span></div>
+        <div class="turin-stat"><span class="ts-icon">🏘</span><span class="ts-val" style="color:var(--purple)">2.2M</span><span class="ts-lbl">Metro population · 312 municipalities</span></div>
+        <div class="turin-stat"><span class="ts-icon">🕐</span><span class="ts-val" style="color:var(--green)">42 min</span><span class="ts-lbl">Average commute — "Inhabiting Time"</span></div>
       </div>
 
       <div class="chart-box">
-        <div style="font-size:12px;font-weight:600;margin-bottom:8px">📊 Mode Split — Turin Metro Area</div>
-        <canvas id="chartMode" height="130"></canvas>
-      </div>
-
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">🏙 Turin Context</div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.6">
-          • 100,000+ university students (PoliTo + UniTo)<br>
-          • Car‑dependent peri‑urban corridors with poor PT integration<br>
-          • Target: aged 18–30 periurban commuters<br>
-          • Theme: <em>"Inhabiting Time"</em> — transport as lived experience, not simply distance
-        </div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px">⏱ Giuseppe's Travel Time by Phase</div>
+        <canvas id="chartTime" height="100"></canvas>
       </div>
     </div>
 
     <!-- Column 3: Benchmark -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--green);padding-bottom:4px;color:var(--green)">Benchmark</h3>
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--green);padding-bottom:4px;color:var(--green);font-size:14px">Benchmark</h3>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:8px">🔍 Competitive Landscape</div>
+      <!-- Competitive landscape -->
+      <div class="card" style="padding:12px 10px;border:2px solid rgba(5,150,105,.2)">
+        <div style="font-size:14px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:6px">🔍 Competitive Landscape
+          <span style="margin-left:auto;font-size:10px;color:var(--green);background:rgba(5,150,105,.08);padding:2px 8px;border-radius:10px;font-weight:700">MoveWise wins 6/7</span>
+        </div>
         <table class="bench-table">
-          <thead>
-            <tr><th>Feature</th><th>Moovit</th><th>Whim</th><th>GTT</th><th>MoveWise</th></tr>
-          </thead>
+          <thead><tr><th style="width:35%">Feature</th><th>Moovit</th><th>Whim</th><th>GTT</th><th>MoveWise</th></tr></thead>
           <tbody>
-            <tr><td>Route Planning</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="mw-col check">✓ RL</td></tr>
+            <tr><td>Route Planning</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="mw-col check">✓ RL‑AI</td></tr>
             <tr><td>Integrated Payment</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td class="mw-col check">✓ QR</td></tr>
             <tr><td>Insurance</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="mw-col check">✓</td></tr>
             <tr><td>Car‑User Onboarding</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="mw-col check">✓</td></tr>
             <tr><td>Behavior Change</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="mw-col check">✓ 4‑Layer</td></tr>
-            <tr><td>Self‑Sustaining</td><td>Ads</td><td>Sub</td><td>Public</td><td class="mw-col">E‑comm</td></tr>
+            <tr><td>Carpooling</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="mw-col check">✓</td></tr>
+            <tr><td>Revenue Model</td><td style="color:var(--text3)">Ads</td><td style="color:var(--text3)">Sub</td><td style="color:var(--text3)">Public</td><td class="mw-col">E‑comm</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="ctx-card" style="border-left-color:var(--green)"><strong>Key Differentiator:</strong> Moovit informs, Whim bundles, GTT sells tickets. <em>None actively change behavior.</em> MoveWise is the first to solve the car‑user data gap with RL‑powered personalized nudging.</div>
-
-      <div class="chart-box">
-        <div style="font-size:12px;font-weight:600;margin-bottom:8px">💰 Giuseppe's Cost Comparison</div>
-        <canvas id="chartCost" height="120"></canvas>
+      <!-- Cost comparison -->
+      <div class="chart-box" style="border:2px solid rgba(217,119,6,.2)">
+        <div style="font-size:14px;font-weight:800;margin-bottom:4px">💰 Giuseppe's Monthly Cost</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px">True cost incl. fuel, depreciation, insurance, parking</div>
+        <canvas id="chartCost" height="130"></canvas>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:11px">
+          <span style="color:var(--red);font-weight:700">Car: €510/mo</span>
+          <span style="color:var(--green);font-weight:700">MoveWise: €45/mo → saves €5,580/yr</span>
+        </div>
       </div>
 
-      <div class="card" style="font-size:11px;color:var(--text3);line-height:1.7">
-        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:4px">📚 Key References</div>
-        Thaler &amp; Sunstein (2008) — Nudge Theory<br>
-        Kahneman &amp; Tversky (1979) — Prospect Theory<br>
-        Chorus et al. (2008) — Random Regret Minimization<br>
-        Hensher &amp; Hietanen (2023) — Mobility as a Feature<br>
-        Denmark Rejsekort — QR Data Collection Model<br>
-        Butler et al. (2021) — MaaS Barriers &amp; Risks
+      <!-- References -->
+      <div class="card" style="padding:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px">📚 Key References</div>
+        <div class="ref-item"><strong>Thaler &amp; Sunstein</strong> <span class="ref-year">(2021)</span> — <em>Nudge: Final Ed.</em> <a href="https://doi.org/10.2307/j.ctv550cf2" target="_blank" rel="noopener">DOI</a></div>
+        <div class="ref-item"><strong>Kahneman &amp; Tversky</strong> <span class="ref-year">(1979)</span> — <em>Prospect Theory</em> <a href="https://doi.org/10.2307/1914185" target="_blank" rel="noopener">DOI</a></div>
+        <div class="ref-item"><strong>Hensher &amp; Hietanen</strong> <span class="ref-year">(2023)</span> — <em>MaaF</em> <a href="https://doi.org/10.1016/j.tra.2023.103660" target="_blank" rel="noopener">DOI</a></div>
+        <div class="ref-item"><strong>Chorus et al.</strong> <span class="ref-year">(2008)</span> — <em>Random Regret Min.</em> <a href="https://doi.org/10.1016/j.trb.2007.05.004" target="_blank" rel="noopener">DOI</a></div>
+        <div class="ref-item"><strong>Esztergár‑Kiss</strong> <span class="ref-year">(2024)</span> — <em>RL for MaaS</em> <a href="https://doi.org/10.3390/su16010300" target="_blank" rel="noopener">DOI</a></div>
+        <div class="ref-item"><strong>Butler et al.</strong> <span class="ref-year">(2021)</span> — <em>MaaS Barriers</em> <a href="https://doi.org/10.1016/j.cstp.2020.12.017" target="_blank" rel="noopener">DOI</a></div>
       </div>
     </div>
   </div>
@@ -541,134 +522,140 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 
 <!-- ━━━━━━━━ SLIDE 4 — THE PROJECT ━━━━━━━━ -->
 <div class="slide" id="s4">
-  <div class="cols" style="align-items:flex-start">
-    <!-- Column 1: Concept & Technical -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--cyan);padding-bottom:4px">Concept &amp; Technical Core</h3>
+  <div class="cols" style="align-items:flex-start;gap:18px">
+    <!-- Column 1: Concept + Technical Operation -->
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--cyan);padding-bottom:4px;font-size:14px">Concept &amp; Technical Operation</h3>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">💡 Core Idea</div>
-        <p style="font-size:12px;color:var(--text2);line-height:1.55">MoveWise is a <strong style="color:var(--cyan)">MaaS super‑app</strong> that uses RL to transform private car users into sustainable commuters — not by telling them what to do, but by making the green choice the <strong style="color:var(--green)">easy, fun, and financially smart</strong> choice.</p>
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">💡 Concept (Basic Idea)</div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.5">MoveWise is a <strong style="color:var(--cyan)">MaaS super‑app</strong> that uses <strong>Deep Reinforcement Learning</strong> to transform private car users into sustainable commuters — not by telling them what to do, but by making the green choice the <strong style="color:var(--green)">easy, fun, and financially smart</strong> choice.</p>
+        <p style="font-size:12px;color:var(--text2);line-height:1.5;margin-top:6px"><strong>Scientific basis:</strong> Combines Prospect Theory (λ = 2.25), Hybrid Utility‑Regret framework, and Context‑Dependent Value of Time to model real human decision‑making, not idealized rational agents.</p>
       </div>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">🧠 RL Reward Function</div>
-        <div class="formula-box">
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">⚙️ Technical Operation (How It Works)</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6">
+          <strong>1.</strong> User downloads app via insurance/parking service (Trojan Horse onboarding)<br>
+          <strong>2.</strong> QR tap‑in/tap‑out collects trip data (mode, GPS, time, cost) — inspired by Denmark's Rejsekort<br>
+          <strong>3.</strong> Deep Q‑Network observes user state <em>s<sub>t</sub></em> = (mode history, time, cost sensitivity, weather)<br>
+          <strong>4.</strong> RL agent selects optimal action: route suggestion + personalized nudge<br>
+          <strong>5.</strong> Reward signal: r<sub>t</sub> = CO₂ reduction + user satisfaction + revenue<br>
+          <strong>6.</strong> Agent improves via experience replay &amp; continuous online learning
+        </div>
+      </div>
+
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">🧠 RL Reward Function</div>
+        <div class="formula-box" style="font-size:14px">
 r<sub>t</sub> = −[ <span class="hl">w₁·GC</span> + <span class="hg">w₂·E</span> + <span class="ho">w₃·Ψ<sub>behav</sub></span> + <span class="hp">w₄·Φ<sub>constr</sub></span> ] + <span class="hg">w₅·R<sub>rev</sub></span>
         </div>
-        <div style="font-size:10px;color:var(--text3);margin-top:4px;line-height:1.5">
-          <span class="hl">GC</span> = Generalized Cost · <span class="hg">E</span> = Emissions · <span class="ho">Ψ</span> = Behavioral Model · <span class="hp">Φ</span> = Constraints · <span class="hg">R</span> = Platform Revenue
+        <div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5">
+          <span class="hl">GC</span> = Generalized Cost · <span class="hg">E</span> = Emissions · <span class="ho">Ψ</span> = Behavioral Model (Prospect Theory) · <span class="hp">Φ</span> = Constraints · <span class="hg">R</span> = Platform Revenue
         </div>
       </div>
 
-      <!-- Behavior change layers -->
-      <div style="display:flex;flex-direction:column;gap:5px">
-        <div style="font-size:12px;font-weight:600;margin-bottom:2px">🎯 4‑Layer Behavior Change</div>
-        <div class="layer-card" style="border-left-color:var(--cyan)"><h4 style="color:var(--cyan)">Layer 1: Nudges</h4><p>Default green, social proof, loss framing, commitment devices, anchoring (hidden car cost €510 vs PT €55)</p></div>
-        <div class="layer-card" style="border-left-color:var(--green)"><h4 style="color:var(--green)">Layer 2: Gamification</h4><p>Green points, leaderboards, streaks, challenges, carbon budget, badges &amp; milestones</p></div>
-        <div class="layer-card" style="border-left-color:var(--orange)"><h4 style="color:var(--orange)">Layer 3: Economic</h4><p>Insurance discounts for PT users, employer packages, dynamic pricing, referral bonuses</p></div>
-        <div class="layer-card" style="border-left-color:var(--purple)"><h4 style="color:var(--purple)">Layer 4: Education</h4><p>True Cost Calculator, "Did You Know?" cards, monthly impact reports, community stories</p></div>
-      </div>
-
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">🔄 Nudge Selection RL</div>
-        <div class="formula-box" style="font-size:12px">
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">🔄 Nudge Selection RL</div>
+        <div class="formula-box" style="font-size:14px">
 Nudge*(i,t) = argmax<sub>n∈𝒩</sub> Q̂(s<sub>i</sub><sup>t</sup>, n; θ)
         </div>
-        <div style="font-size:10px;color:var(--text3);margin-top:4px">A second RL agent learns which nudge works best for each user — personalized, not one‑size‑fits‑all.</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:4px">A second RL agent learns which nudge works best for each user — personalized, adaptive, not one‑size‑fits‑all.</div>
       </div>
     </div>
 
-    <!-- Column 2: How to Use & Phased Adoption -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--green);padding-bottom:4px;color:var(--green)">Giuseppe's Journey</h3>
+    <!-- Column 2: Structure + How to Use -->
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--green);padding-bottom:4px;color:var(--green);font-size:14px">Structure &amp; How to Use</h3>
 
-      <div class="phase-list">
-        <div class="phase">
-          <div class="phase-num" style="background:rgba(220,38,38,.1);color:var(--red)">0</div>
-          <div class="phase-body"><strong>Onboarding via Services</strong><br>Downloads app for car insurance → parking finder → app builds mobility profile → True Cost Calculator reveals €510/mo real car cost</div>
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">🏗 Structure / Technologies Used</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.5">
+          <strong>Frontend:</strong> React.js + Vite + Chart.js + Leaflet Maps<br>
+          <strong>Backend:</strong> FastAPI (Python) + RESTful API<br>
+          <strong>RL Engine:</strong> PyTorch Deep Q‑Network (DQN) with experience replay<br>
+          <strong>Data Pipeline:</strong> QR/NFC tap‑in/out → PostgreSQL → RL training<br>
+          <strong>Deployment:</strong> Docker + CI/CD + GitHub Pages<br>
+          <strong>Behavioral Models:</strong> Prospect Theory (Kahneman &amp; Tversky, 1979), HUR (Chorus 2008), VOT (context‑dependent)
         </div>
-        <div class="phase">
-          <div class="phase-num" style="background:rgba(217,119,6,.1);color:var(--orange)">1</div>
-          <div class="phase-body"><strong>Family Car → P&amp;R → Train</strong><br>40 min · €45/mo · −50% CO₂<br>Preserves passenger productivity</div>
-        </div>
-        <div class="phase">
-          <div class="phase-num" style="background:rgba(8,145,178,.1);color:var(--cyan)">2</div>
-          <div class="phase-body"><strong>E‑Scooter → Train → Walk</strong><br>30 min · €55/mo · −75% CO₂<br>Full independence, no family needed</div>
-        </div>
-        <div class="phase">
-          <div class="phase-num" style="background:rgba(5,150,105,.1);color:var(--green)">3</div>
-          <div class="phase-body"><strong>Carpooling + Multimodal</strong><br>25 min · €50/mo · −80% CO₂<br>Peer matching, shared rides with classmates</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px">
+          <span class="tag tag-cyan" style="font-size:11px">Deep Q‑Learning</span>
+          <span class="tag tag-green" style="font-size:11px">FastAPI</span>
+          <span class="tag tag-purple" style="font-size:11px">PyTorch</span>
+          <span class="tag tag-orange" style="font-size:11px">React.js</span>
+          <span class="tag tag-red" style="font-size:11px">QR/NFC</span>
+          <span class="tag tag-cyan" style="font-size:11px">Docker</span>
         </div>
       </div>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">📊 QR Data Collection</div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.55">
-          <strong>Inspired by Denmark's Rejsekort:</strong><br>
-          • <strong>Tap‑In:</strong> QR scan at journey start → timestamp, GPS, mode<br>
-          • <strong>Tap‑Out:</strong> QR scan at destination → arrival time, location<br>
-          • <strong>Pricing:</strong> Third‑party fares (GTT, Trenitalia, Voi) with transparent service margin<br>
-          • <strong>Multi‑modal:</strong> Sequential scans reconstruct intermodal trips<br>
-          <br>
-          <strong style="color:var(--cyan)">Car users attracted via:</strong> Insurance, parking finder, fuel price comparison, carbon tracker, e‑commerce booking
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">📱 How to Use (Giuseppe's Journey)</div>
+        <div class="phase-list" style="gap:8px">
+          <div class="phase" style="padding:8px 10px"><div class="phase-num" style="background:rgba(220,38,38,.1);color:var(--red);font-size:14px">0</div><div class="phase-body" style="font-size:13px"><strong>Onboarding:</strong> Downloads app for car insurance → parking finder → True Cost Calculator reveals €510/mo real car cost</div></div>
+          <div class="phase" style="padding:8px 10px"><div class="phase-num" style="background:rgba(217,119,6,.1);color:var(--orange);font-size:14px">1</div><div class="phase-body" style="font-size:13px"><strong>P&amp;R + Train:</strong> 40 min · €45/mo · −50% CO₂ · Preserves productivity</div></div>
+          <div class="phase" style="padding:8px 10px"><div class="phase-num" style="background:rgba(8,145,178,.1);color:var(--cyan);font-size:14px">2</div><div class="phase-body" style="font-size:13px"><strong>E‑Scooter + Train:</strong> 30 min · €55/mo · −75% CO₂ · Full independence</div></div>
+          <div class="phase" style="padding:8px 10px"><div class="phase-num" style="background:rgba(5,150,105,.1);color:var(--green);font-size:14px">3</div><div class="phase-body" style="font-size:13px"><strong>Carpool + Multimodal:</strong> 25 min · €50/mo · −80% CO₂ · Peer matching</div></div>
         </div>
       </div>
 
-      <div class="sustain-grid">
-        <div class="sustain-card"><div class="sv" style="color:var(--cyan)">VOT</div><div class="sl">Context-Dependent<br>Value of Time</div></div>
-        <div class="sustain-card"><div class="sv" style="color:var(--orange)">HUR</div><div class="sl">Hybrid Utility‑<br>Regret Model</div></div>
-        <div class="sustain-card"><div class="sv" style="color:var(--purple)">PT</div><div class="sl">Prospect Theory<br>μ = 2.25</div></div>
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">🎯 4‑Layer Behavior Change Model</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="layer-card" style="border-left-color:var(--cyan);padding:8px 12px"><h4 style="color:var(--cyan);font-size:13px">Layer 1: Nudges</h4><p style="font-size:12px">Default green options, social proof, loss framing, anchoring (€510 vs €55)</p></div>
+          <div class="layer-card" style="border-left-color:var(--green);padding:8px 12px"><h4 style="color:var(--green);font-size:13px">Layer 2: Gamification</h4><p style="font-size:12px">Points, leaderboards, streaks, carbon budget, badges &amp; milestones</p></div>
+          <div class="layer-card" style="border-left-color:var(--orange);padding:8px 12px"><h4 style="color:var(--orange);font-size:13px">Layer 3: Economic</h4><p style="font-size:12px">Insurance discounts, employer packages, dynamic pricing, referral bonuses</p></div>
+          <div class="layer-card" style="border-left-color:var(--purple);padding:8px 12px"><h4 style="color:var(--purple);font-size:13px">Layer 4: Education</h4><p style="font-size:12px">True Cost Calculator, impact reports, "Did You Know?" cards</p></div>
+        </div>
       </div>
     </div>
 
-    <!-- Column 3: Sustainability & Revenue -->
-    <div class="col scroll-col">
-      <h3 style="border-bottom:2px solid var(--orange);padding-bottom:4px;color:var(--orange)">Sustainability &amp; Revenue</h3>
+    <!-- Column 3: Sustainability + Functional Diagram -->
+    <div class="col" style="gap:10px">
+      <h3 style="border-bottom:2px solid var(--orange);padding-bottom:4px;color:var(--orange);font-size:14px">Sustainability &amp; System Design</h3>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">💼 "Skyscanner for Mobility"</div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.55">
-          MoveWise aggregates all transport services — users search, compare &amp; book in one app.<br><br>
-          <strong>Revenue streams:</strong><br>
-          • Booking commissions (5–15%)<br>
-          • Subscription fees (monthly bundles)<br>
-          • Insurance commissions (IVASS‑compliant)<br>
-          • Corporate mobility packages<br>
-          • Anonymized data analytics
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">♻️ Sustainability Aspects</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6">
+          <strong style="color:var(--green)">Environmental:</strong> −220 kg CO₂/yr per user (commute); −310 kg total. EU target: −55% by 2030<br>
+          <strong style="color:var(--cyan)">Economic:</strong> Self‑sustaining e‑commerce model — no public subsidies needed. Break‑even at 3–4K users<br>
+          <strong style="color:var(--purple)">Social:</strong> Reduced car dependency for students; safer travel; inclusive multimodal access for all<br>
+          <strong style="color:var(--orange)">GDPR:</strong> Anonymized data; transparent consent; 90‑day exit notification; IVASS‑compliant insurance
         </div>
       </div>
 
-      <div class="card" style="background:linear-gradient(135deg,rgba(5,150,105,.05),rgba(8,145,178,.04))">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px;color:var(--green)">📈 Revenue Projection</div>
-        <div style="display:flex;gap:12px;justify-content:center">
-          <div style="text-align:center"><div style="font-size:26px;font-weight:800;color:var(--green)">€600K</div><div style="font-size:10px;color:var(--text3)">Annual Revenue<br>(10K users)</div></div>
-          <div style="text-align:center"><div style="font-size:26px;font-weight:800;color:var(--cyan)">3–4K</div><div style="font-size:10px;color:var(--text3)">Users to<br>Break Even</div></div>
+      <div class="card" style="padding:14px;background:linear-gradient(135deg,rgba(5,150,105,.05),rgba(8,145,178,.04))">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px;color:var(--green)">📈 Revenue &amp; Business Model</div>
+        <div style="display:flex;gap:16px;justify-content:center;margin-bottom:8px">
+          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green)">€600K</div><div style="font-size:11px;color:var(--text3)">Annual Revenue (10K users)</div></div>
+          <div style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--cyan)">3–4K</div><div style="font-size:11px;color:var(--text3)">Users to Break Even</div></div>
         </div>
-        <div style="font-size:10px;color:var(--text3);text-align:center;margin-top:6px">Operating costs: €250K–350K/yr (lean startup)</div>
-      </div>
-
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">♻️ Sustainability Aspects</div>
-        <div style="font-size:11px;color:var(--text2);line-height:1.55">
-          <strong style="color:var(--green)">Environmental:</strong> −220 kg CO₂/yr per user (commute); −310 kg including all trips<br><br>
-          <strong style="color:var(--cyan)">Economic:</strong> Self‑sustaining e‑commerce model — no public subsidies required<br><br>
-          <strong style="color:var(--purple)">Social:</strong> Reduced car dependency for students; safer travel; inclusive multimodal access<br><br>
-          <strong style="color:var(--orange)">GDPR Compliant:</strong> Anonymized data; transparent consent; 90‑day exit notification
+        <div style="font-size:12px;color:var(--text2);line-height:1.5">
+          <strong>Revenue streams:</strong> Booking commissions (5–15%) · Subscriptions · Insurance · Corporate packages · Data analytics
         </div>
       </div>
 
-      <div class="card">
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px">🔧 Technologies Used</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          <span class="tag tag-cyan">Deep Q‑Learning</span>
-          <span class="tag tag-green">FastAPI</span>
-          <span class="tag tag-purple">PyTorch</span>
-          <span class="tag tag-orange">React.js</span>
-          <span class="tag tag-red">Prospect Theory</span>
-          <span class="tag tag-cyan">QR/NFC</span>
-          <span class="tag tag-green">HUR Model</span>
-          <span class="tag tag-purple">Nudge AI</span>
+      <!-- Functional Diagram -->
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">📐 Functional System Diagram</div>
+        <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+          <div style="padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(220,38,38,.25);color:var(--red);background:rgba(220,38,38,.06);width:100%;text-align:center">👤 User Layer — App UI (React + Leaflet + Chart.js)</div>
+          <div style="font-size:14px;color:var(--text3)">⬇ QR Data + GPS</div>
+          <div style="padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(8,145,178,.25);color:var(--cyan);background:rgba(8,145,178,.06);width:100%;text-align:center">⚡ API Layer — FastAPI REST + Auth + Payment Gateway</div>
+          <div style="font-size:14px;color:var(--text3)">⬇ State Vector</div>
+          <div style="padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(124,58,237,.25);color:var(--purple);background:rgba(124,58,237,.06);width:100%;text-align:center">🧠 RL Engine — DQN (PyTorch) + Reward Function + Replay Buffer</div>
+          <div style="font-size:14px;color:var(--text3)">⬇ Optimal Action</div>
+          <div style="padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(5,150,105,.25);color:var(--green);background:rgba(5,150,105,.06);width:100%;text-align:center">🎯 Nudge Engine — Personalized Route + Behavioral Nudge</div>
+          <div style="font-size:14px;color:var(--text3)">⬇ Feedback Loop</div>
+          <div style="padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid rgba(217,119,6,.25);color:var(--orange);background:rgba(217,119,6,.06);width:100%;text-align:center">📊 Data Store — PostgreSQL + Anonymized Analytics + GDPR Vault</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:14px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">📊 Scientific Metrics</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="text-align:center;padding:8px;background:var(--bg2);border-radius:8px;border:1px solid var(--glass-border)"><div style="font-size:20px;font-weight:800;color:var(--red)">12.1×</div><div style="font-size:10px;color:var(--text3)">Car vs Train CO₂ ratio</div></div>
+          <div style="text-align:center;padding:8px;background:var(--bg2);border-radius:8px;border:1px solid var(--glass-border)"><div style="font-size:20px;font-weight:800;color:var(--orange)">8.5×</div><div style="font-size:10px;color:var(--text3)">Cost perception gap</div></div>
+          <div style="text-align:center;padding:8px;background:var(--bg2);border-radius:8px;border:1px solid var(--glass-border)"><div style="font-size:20px;font-weight:800;color:var(--green)">80%</div><div style="font-size:10px;color:var(--text3)">Max CO₂ reduction (Phase 3)</div></div>
         </div>
       </div>
     </div>
@@ -797,6 +784,12 @@ Nudge*(i,t) = argmax<sub>n∈𝒩</sub> Q̂(s<sub>i</sub><sup>t</sup>, n; θ)
         </div>
       </div>
 
+      <!-- Behavior change funnel chart -->
+      <div class="chart-box" style="margin-top:6px">
+        <div style="font-size:12px;font-weight:600;margin-bottom:8px">🔄 Behavior Change Funnel</div>
+        <canvas id="chartFunnel" height="110"></canvas>
+      </div>
+
       <div style="text-align:center;margin-top:8px">
         <div class="nexus-badge">NEXUS 2026 · BEST Politecnico di Torino</div>
         <div style="font-size:12px;color:var(--text3);margin-top:4px">Team MoveWise · March 7–8, 2026</div>
@@ -856,14 +849,62 @@ document.addEventListener('touchend', e => {
 });
 
 // ─── Charts ───
+// Register Chart.js datalabels plugin (inline)
+const datalabelsPlugin = {
+  id: 'customDatalabels',
+  afterDatasetsDraw(chart) {
+    const ctx = chart.ctx;
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      if (!meta.hidden) {
+        meta.data.forEach((element, index) => {
+          const data = dataset.data[index];
+          if (data === 0 || data === undefined) return;
+          ctx.save();
+          ctx.font = 'bold 12px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          if (chart.config.type === 'doughnut' || chart.config.type === 'pie') {
+            // Place label outside the arc
+            const arc = element;
+            const centerX = arc.x;
+            const centerY = arc.y;
+            const angle = (arc.startAngle + arc.endAngle) / 2;
+            const outerR = arc.outerRadius;
+            const midR = (arc.innerRadius + outerR) / 2;
+            const x = centerX + Math.cos(angle) * midR;
+            const y = centerY + Math.sin(angle) * midR;
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 11px Inter, sans-serif';
+            ctx.fillText(data + '%', x, y);
+          } else if (chart.options.indexAxis === 'y') {
+            // Horizontal bar — label at end of bar
+            const { x, y } = element.tooltipPosition();
+            ctx.fillStyle = '#1e293b';
+            ctx.textAlign = 'left';
+            ctx.fillText(dataset.labelPrefix ? dataset.labelPrefix + data : data, x + 6, y);
+          } else {
+            // Vertical bar — label on top
+            const { x, y } = element.tooltipPosition();
+            ctx.fillStyle = '#1e293b';
+            ctx.fillText(dataset.labelPrefix ? dataset.labelPrefix + data : data, x, y - 8);
+          }
+          ctx.restore();
+        });
+      }
+    });
+  }
+};
+Chart.register(datalabelsPlugin);
+
 function initCharts() {
-  // Mode split chart
+  // Mode split chart with visible % labels
   const ctx1 = document.getElementById('chartMode');
   if (ctx1) {
     new Chart(ctx1, {
       type: 'doughnut',
       data: {
-        labels: ['Private Car', 'Public Transit', 'Walking', 'Cycling', 'Other'],
+        labels: ['Private Car 58%', 'Public Transit 22%', 'Walking 12%', 'Cycling 5%', 'Other 3%'],
         datasets: [{
           data: [58, 22, 12, 5, 3],
           backgroundColor: ['#dc2626', '#0891b2', '#7c3aed', '#059669', '#64748b'],
@@ -872,36 +913,74 @@ function initCharts() {
         }]
       },
       options: {
-        cutout: '60%',
+        cutout: '55%',
         plugins: {
-          legend: { position: 'right', labels: { color: '#475569', font: { size: 11 }, padding: 8, boxWidth: 10 } }
+          legend: { position: 'right', labels: { color: '#1e293b', font: { size: 12, weight: '600' }, padding: 8, boxWidth: 12 } },
+          tooltip: { enabled: false }
         }
       }
     });
   }
 
-  // Cost comparison chart
+  // Cost comparison chart with data labels
   const ctx2 = document.getElementById('chartCost');
   if (ctx2) {
     new Chart(ctx2, {
       type: 'bar',
       data: {
-        labels: ['True Car Cost', 'Phase 1\n(P&R+Train)', 'Phase 2\n(Scooter+Train)', 'Phase 3\n(Carpool)'],
+        labels: ['True Car Cost', 'Phase 1: P&R + Train', 'Phase 2: Scooter + Train', 'Phase 3: Carpool'],
         datasets: [{
           label: '€/month',
           data: [510, 45, 55, 50],
+          labelPrefix: '€',
           backgroundColor: ['#dc2626', '#d97706', '#0891b2', '#059669'],
-          borderRadius: 4,
+          borderRadius: 6,
           barThickness: 28
         }]
       },
       options: {
         indexAxis: 'y',
         scales: {
-          x: { grid: { color: 'rgba(148,163,184,.12)' }, ticks: { color: '#64748b', font: { size: 10 } } },
-          y: { grid: { display: false }, ticks: { color: '#475569', font: { size: 10 } } }
+          x: { grid: { color: 'rgba(148,163,184,.12)' }, ticks: { color: '#475569', font: { size: 11, weight: '600' }, callback: function(v){ return '€' + v; } }, max: 600 },
+          y: { grid: { display: false }, ticks: { color: '#1e293b', font: { size: 12, weight: '700' } } }
         },
-        plugins: { legend: { display: false } }
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      }
+    });
+  }
+
+  // Travel time chart (new)
+  const ctxTime = document.getElementById('chartTime');
+  if (ctxTime) {
+    new Chart(ctxTime, {
+      type: 'bar',
+      data: {
+        labels: ['Current (Car)', 'Phase 1', 'Phase 2', 'Phase 3'],
+        datasets: [{
+          label: 'Minutes',
+          data: [45, 40, 30, 25],
+          backgroundColor: ['#dc2626', '#d97706', '#0891b2', '#059669'],
+          borderRadius: 6,
+          barThickness: 28
+        },{
+          label: 'CO₂ Reduction',
+          data: [0, 50, 75, 80],
+          backgroundColor: ['rgba(220,38,38,.15)', 'rgba(217,119,6,.15)', 'rgba(8,145,178,.15)', 'rgba(5,150,105,.15)'],
+          borderRadius: 6,
+          barThickness: 28,
+          yAxisID: 'y1'
+        }]
+      },
+      options: {
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#1e293b', font: { size: 11, weight: '600' } } },
+          y: { grid: { color: 'rgba(148,163,184,.1)' }, ticks: { color: '#475569', font: { size: 10 }, callback: function(v){ return v + ' min'; } }, title: { display: true, text: 'Time (min)', color: '#64748b', font: { size: 10 } } },
+          y1: { position: 'right', grid: { display: false }, ticks: { color: '#059669', font: { size: 10 }, callback: function(v){ return '−' + v + '%'; } }, title: { display: true, text: 'CO₂ Reduction', color: '#059669', font: { size: 10 } }, max: 100 }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#475569', font: { size: 10, weight: '600' }, boxWidth: 10, padding: 8 } },
+          tooltip: { enabled: false }
+        }
       }
     });
   }
@@ -909,6 +988,98 @@ function initCharts() {
 
 // Init charts when slide 3 becomes visible (or on load)
 initCharts();
+initExtraCharts();
+
+function initExtraCharts() {
+  // Adoption chart (slide 2)
+  const ctxAdopt = document.getElementById('chartAdoption');
+  if (ctxAdopt) {
+    new Chart(ctxAdopt, {
+      type: 'line',
+      data: {
+        labels: ['M1','M3','M6','M9','M12','M18','M24'],
+        datasets: [{
+          label: 'Users (thousands)',
+          data: [0.2, 0.8, 2.5, 4.0, 6.5, 10, 15],
+          borderColor: '#0891b2',
+          backgroundColor: 'rgba(8,145,178,.08)',
+          fill: true,
+          tension: .4,
+          pointRadius: 3,
+          pointBackgroundColor: '#0891b2'
+        },{
+          label: 'Active Daily Users',
+          data: [0.05, 0.3, 1.0, 1.8, 3.0, 5.5, 8],
+          borderColor: '#059669',
+          backgroundColor: 'rgba(5,150,105,.06)',
+          fill: true,
+          tension: .4,
+          pointRadius: 3,
+          pointBackgroundColor: '#059669'
+        }]
+      },
+      options: {
+        scales: {
+          x: { grid: { color: 'rgba(148,163,184,.1)' }, ticks: { color: '#64748b', font: { size: 9 } } },
+          y: { grid: { color: 'rgba(148,163,184,.1)' }, ticks: { color: '#64748b', font: { size: 9 } }, title: { display: true, text: 'K users', color: '#64748b', font: { size: 9 } } }
+        },
+        plugins: { legend: { position: 'bottom', labels: { color: '#475569', font: { size: 9 }, boxWidth: 8, padding: 6 } } }
+      }
+    });
+  }
+
+  // Emissions by mode chart (slide 3) — with visible data labels
+  const ctxEmit = document.getElementById('chartEmissions');
+  if (ctxEmit) {
+    new Chart(ctxEmit, {
+      type: 'bar',
+      data: {
+        labels: ['Car (solo)', 'Carpool', 'Bus', 'E‑Scooter', 'Metro/Tram', 'Train', 'Walk/Bike'],
+        datasets: [{
+          label: 'gCO₂/pkm',
+          data: [170, 85, 68, 35, 22, 14, 0],
+          backgroundColor: ['#dc2626','#d97706','#7c3aed','#2563eb','#0891b2','#059669','#10b981'],
+          borderRadius: 6,
+          barThickness: 20
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: { grid: { color: 'rgba(148,163,184,.1)' }, ticks: { color: '#475569', font: { size: 11, weight: '600' } } },
+          y: { grid: { display: false }, ticks: { color: '#1e293b', font: { size: 12, weight: '600' } } }
+        },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      }
+    });
+  }
+
+  // Behavior change funnel (slide 5)
+  const ctxFunnel = document.getElementById('chartFunnel');
+  if (ctxFunnel) {
+    new Chart(ctxFunnel, {
+      type: 'bar',
+      data: {
+        labels: ['App Install\n(Insurance)', 'First PT Trip', 'Regular\nMultimodal', 'Full Mode\nSwitch', 'Advocate\n(Referrals)'],
+        datasets: [{
+          label: '% of onboarded users',
+          data: [100, 68, 45, 28, 15],
+          labelPrefix: '',
+          backgroundColor: ['#dc2626','#d97706','#0891b2','#059669','#7c3aed'],
+          borderRadius: 6,
+          barThickness: 26
+        }]
+      },
+      options: {
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#1e293b', font: { size: 10, weight: '600' } } },
+          y: { grid: { color: 'rgba(148,163,184,.1)' }, ticks: { color: '#475569', font: { size: 10, weight: '600' }, callback: function(v){ return v + '%'; } }, max: 100 }
+        },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } }
+      }
+    });
+  }
+}
 
 // ─── PDF Export ───
 async function exportPDF() {
