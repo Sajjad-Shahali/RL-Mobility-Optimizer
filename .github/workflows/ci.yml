@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  rl-engine:
+    name: RL Engine Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: rl_engine/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r rl_engine/requirements.txt httpx
+
+      - name: Verify imports
+        run: |
+          python -c "from rl_engine.config import GIUSEPPE, MODES, MODE_PROFILES"
+          python -c "from rl_engine.generalized_cost import rank_modes"
+          python -c "from rl_engine.environment import MaaSEnvironment"
+          python -c "from rl_engine.agent import DQNAgent"
+          python -c "from rl_engine.api import app"
+
+      - name: Run training pipeline (50 episodes)
+        run: |
+          python -c "
+          from rl_engine.train import train, evaluate
+          result = train(num_episodes=50, num_weeks=4, seed=42, verbose=False)
+          ev = evaluate(result['agent'], num_episodes=10)
+          assert ev['mean_green_ratio'] > 0.1, f'Green ratio too low: {ev[\"mean_green_ratio\"]}'
+          assert ev['mean_co2_saved'] > 0, f'No CO2 saved: {ev[\"mean_co2_saved\"]}'
+          print(f'Green ratio: {ev[\"mean_green_ratio\"]:.1%}')
+          print(f'CO2 saved: {ev[\"mean_co2_saved\"]:.1f} kg')
+          print('Training smoke test passed')
+          "
+
+      - name: Test API response shapes
+        run: |
+          python -c "
+          from fastapi.testclient import TestClient
+          from rl_engine.api import app
+          client = TestClient(app)
+
+          # Routes
+          r = client.get('/api/routes/commute')
+          assert r.status_code == 200
+          routes = r.json()
+          assert isinstance(routes, list)
+          for key in ['id','title','label','subtitle','segments','totalTime','cost','co2','gcScore','tags']:
+              assert key in routes[0], f'Missing {key} in routes'
+
+          # Nudge
+          r = client.get('/api/nudge/select')
+          assert r.status_code == 200
+          for key in ['id','type','text','icon']:
+              assert key in r.json(), f'Missing {key} in nudge'
+
+          # Profile
+          r = client.get('/api/user/profile')
+          assert r.status_code == 200
+          p = r.json()
+          for key in ['name','surname','greenScore','behavioralParams','preferences','priorities']:
+              assert key in p, f'Missing {key} in profile'
+
+          # Carbon
+          r = client.get('/api/carbon')
+          assert r.status_code == 200
+          for key in ['monthlyBudget','used','saved','breakdown']:
+              assert key in r.json(), f'Missing {key} in carbon'
+
+          # Adoption
+          r = client.get('/api/adoption')
+          assert r.status_code == 200
+          assert len(r.json()) == 4
+
+          print('All API shape tests passed')
+          "
+
+  frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: movewise-react
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: movewise-react/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+  docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build RL engine image
+        run: docker build -t movewise-rl .

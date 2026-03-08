@@ -1,444 +1,374 @@
-﻿# MoveWise — AI-Powered Sustainable Mobility Platform
+# MoveWise
 
-> **NEXUS 2026 Hackathon** | Politecnico di Torino  
-> React + Vite + Three.js + Leaflet/OpenStreetMap
+**Reinforcement Learning for Behaviorally-Aware Mobility-as-a-Service**
 
----
+[![CI](https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer/actions/workflows/ci.yml/badge.svg)](https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![React 18](https://img.shields.io/badge/React-18.3-61dafb.svg)](https://react.dev/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ed.svg)](https://docs.docker.com/compose/)
 
-## The Problem: Unsustainable Urban Mobility
+> NEXUS 2026 Hackathon -- Politecnico di Torino
 
-Urban transportation is the single largest contributor to CO₂ emissions in European cities, accounting for **30% of total EU greenhouse gas emissions** (European Environment Agency, 2024). In the Torino metropolitan area alone:
-
-- **72% of daily commuters** drive alone, despite available public transport alternatives
-- The average car sits idle **96% of the time**, yet costs owners €510/month in true costs (fuel, insurance, depreciation, parking, maintenance, time value)
-- A typical 30 km car commute produces **4.2 kg CO₂ per day** — over **1 tonne per year** per commuter
-- Traffic congestion costs EU economies **€270 billion annually** in lost productivity
-- Poor air quality from transport emissions causes **300,000 premature deaths** per year in Europe
-
-Students and young professionals in suburban corridors (like Caselle Torinese → Orbassano) face a particularly difficult challenge: limited direct public transport connections force them into car dependency, even when they would prefer greener alternatives.
-
-### Why Existing Solutions Fall Short
-
-Traditional mobility apps (Google Maps, Moovit, CityMapper) only solve **route planning**. They don't address the deeper behavioral and economic barriers to sustainable transport adoption:
-
-| Barrier | What's Missing |
-|---------|---------------|
-| **Habit inertia** | People stick with cars out of routine, not rational choice |
-| **Perceived cost illusion** | Drivers think they spend €60/mo on transport (just fuel) when the true cost is €510/mo |
-| **Information asymmetry** | Users don't know their CO₂ footprint or that PT could save them 80% |
-| **Fragmented experience** | Bus, train, scooter, bike — all separate apps, separate tickets |
-| **No positive reinforcement** | No rewards for choosing green transport |
-| **Insurance disconnect** | Car insurance doesn't reflect actual driving behavior |
+**Authors:** Ali Vaezi, Sajjad Shahali, Kiana Salimi
 
 ---
 
-## The Solution: MoveWise — Mobility-as-a-Service (MaaS)
+## Table of Contents
 
-MoveWise is a **comprehensive MaaS (Mobility-as-a-Service) super-app** that integrates all transport modes into a single platform, uses **Reinforcement Learning** to personalise recommendations, and employs **behavioral economics** to nudge users toward sustainable choices.
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Architecture](#architecture)
+- [RL Engine](#rl-engine)
+- [React Frontend](#react-frontend)
+- [Getting Started](#getting-started)
+- [API Reference](#api-reference)
+- [Training Results](#training-results)
+- [Project Structure](#project-structure)
+- [Technology Stack](#technology-stack)
+- [Impact Summary](#impact-summary)
+- [Contributing](#contributing)
+- [License](#license)
+- [Citation](#citation)
+
+---
+
+## Overview
+
+MoveWise is a Mobility-as-a-Service (MaaS) platform that combines a **Deep Q-Network** recommendation engine with a **React + Three.js** frontend to nudge car-dependent users toward sustainable multimodal transport. The system integrates all transport modes (public transit, e-scooters, bike-sharing, carpooling) into a single application with unified payment, personalized route ranking, and behavioral nudging powered by reinforcement learning.
+
+The RL engine is grounded in a formal mathematical formulation (`RL_MaaS_Formulation_v3`) that brings together:
+
+- **Generalized Cost (GC) theory** with context-dependent Value of Time
+- **Prospect Theory** (Kahneman and Tversky, 1979) with loss aversion parameter mu = 2.25
+- **HUR behavioral model** (Habits, Utility, Rationality) for user acceptance modeling
+- **Phased adoption** that gradually transitions users from car dependency to multimodal mobility
+
+---
+
+## Problem Statement
+
+Urban transportation accounts for 30% of total EU greenhouse gas emissions (European Environment Agency, 2024). In the Turin metropolitan area:
+
+| Issue | Scale |
+|---|---|
+| Daily commuters driving alone | 72% |
+| Average car idle time | 96% of the day |
+| True monthly car cost (perceived: EUR 60) | EUR 510 |
+| CO2 per 30 km car commute | 4.2 kg/day |
+| EU annual congestion cost | EUR 270 billion |
+
+Existing mobility apps solve route planning but do not address the behavioral and economic barriers to sustainable transport adoption: habit inertia, cost misperception, information asymmetry, fragmented ticketing, and lack of positive reinforcement.
+
+MoveWise addresses these barriers through a multi-pronged approach combining AI personalization, economic transparency, insurance-linked incentives, and gamification.
 
 ### What is MaaS?
 
-**Mobility-as-a-Service (MaaS)** is a paradigm shift in urban transport. Instead of owning a vehicle, users access a spectrum of transport options — public transit, e-scooters, bike-sharing, carpooling, and on-demand rides — through a **single digital platform** with **unified payment** and **seamless journey planning**.
+Mobility-as-a-Service (MaaS) is a paradigm shift in urban transport. Instead of owning a vehicle, users access a spectrum of transport options -- public transit, e-scooters, bike-sharing, carpooling, and on-demand rides -- through a single digital platform with unified payment and seamless journey planning.
 
 Key MaaS principles implemented in MoveWise:
 
-1. **Integration** — All transport modes (GTT buses, Trenitalia trains, Voi/Lime e-scooters, ToBike, carpooling) under one roof
-2. **Personalisation** — AI-powered route ranking based on individual preferences, habits, and behavioral profile
-3. **Unified Payment** — One QR code for tap-in/tap-out across all modes; digital wallet with budget tracking
-4. **Subscription Models** — Pay-as-you-go, monthly PT bundle (€49/mo), or Premium (€65/mo with insurance)
-5. **Behavioral Nudging** — Gamification, social proof, loss framing, and commitment devices to encourage adoption
-
-### How MoveWise Reduces CO₂ Emissions
-
-MoveWise tackles emissions through a **multi-pronged approach**:
-
-#### 1. Modal Shift — From Car to Multimodal
-By making it effortless to combine e-scooter → train → walk, MoveWise enables routes that are **80–95% lower in CO₂** than driving alone:
-
-| Route Type | CO₂ per Trip | Reduction vs Car |
-|------------|-------------|-----------------|
-| Car (alone, 30 km) | 4.20 kg | — |
-| E-Scooter + Train + Walk | 0.84 kg | **-80%** |
-| Bus + Train + Walk | 1.60 kg | **-62%** |
-| Walk + Train + Bike | 0.21 kg | **-95%** |
-| Carpool (2 persons) | 2.10 kg | **-50%** |
-
-*Emission factors from EEA 2024: Car = 140 g/km, Bus = 68 g/km, Train = 14 g/km, E-Scooter = 22 g/km, Bike/Walk = 0 g/km*
-
-#### 2. True Cost Transparency
-Most drivers dramatically underestimate their car costs. MoveWise's **True Cost Calculator** reveals the full picture:
-
-- **Perceived cost**: €60/month (just fuel "feeling")
-- **Actual cost**: €510/month (fuel €120 + insurance €47 + depreciation €180 + maintenance €45 + parking €40 + fines €15 + time value €63)
-- **MoveWise PT bundle**: €55/month → **Save €455/month = €5,460/year**
-
-This "loss framing" nudge leverages the psychological principle that people feel losses 2.25× more strongly than equivalent gains (Kahneman & Tversky, 1979).
-
-#### 3. Insurance-Linked Incentives
-MoveWise partners with insurance providers (UnipolSai) to offer **premium reductions based on PT usage**:
-
-- Use public transport 3+ days/week → **15% lower car insurance premium**
-- Less driving = lower accident risk = actuarially justified discount
-- Annual saving: €560 → €476 (€84/year)
-- Data sharing is anonymised and GDPR-compliant via IVASS intermediary
-
-#### 4. Gamification & Social Proof
-Behavioral science shows that **social norms and rewards** are powerful motivators:
-
-- **Green Points**: Earn points for every eco-trip (50 pts for best route, 75 pts for greenest)
-- **Leaderboard**: Compare with peers on your corridor
-- **Challenges**: "Try 3 different modes this week" → 100 bonus points
-- **Badges**: Achievement system (First Train Ride, 10 kg CO₂ Saved, Multimodal Week)
-- **Social proof nudge**: "87% of students on your route take the train"
-- **Streak system**: Consecutive green travel days with escalating rewards
-
-#### 5. Phased Adoption Journey
-Rather than expecting overnight behavior change, MoveWise guides users through **gradual phases**:
-
-| Phase | Transition | CO₂ Reduction | Monthly Cost |
-|-------|-----------|--------------|-------------|
-| 0. Onboarding | Install via insurance/parking services | — | — |
-| 1. Park & Ride | Drive to P&R, then train | -50% | €45/mo |
-| 2. Full Multimodal | E-Scooter → Train → Walk | -75% | €55/mo |
-| 3. Carpool + PT | Peer carpooling for non-commute | -80% | €50/mo |
+1. **Integration** -- All transport modes (GTT buses, Trenitalia trains, Voi/Lime e-scooters, ToBike, carpooling) under one roof
+2. **Personalisation** -- AI-powered route ranking based on individual preferences, habits, and behavioral profile
+3. **Unified Payment** -- One QR code for tap-in/tap-out across all modes; digital wallet with budget tracking
+4. **Subscription Models** -- Pay-as-you-go, monthly PT bundle (EUR 49/mo), or Premium (EUR 65/mo with insurance)
+5. **Behavioral Nudging** -- Gamification, social proof, loss framing, and commitment devices to encourage adoption
 
 ---
 
-## How MoveWise Saves Time
-
-Contrary to the perception that public transport is slower, MoveWise demonstrates that **multimodal routes can match or beat car travel times** in urban settings:
-
-- **Average car commute** Caselle → Orbassano: **45 min** (with traffic, parking, walking to campus)
-- **MoveWise optimised route**: **30 min** (e-scooter 7 min + train 18 min + walk 5 min)
-- **Time saved**: 15 min per trip = **2.5 hours/week** = **130 hours/year**
-
-Additionally:
-- **Productive time**: Train segments allow studying, reading, or working (unlike driving)
-- **No parking search**: Eliminates 10–15 min average parking time near campus
-- **Real-time optimisation**: Routes adapt to live traffic, delays, and weather
-- **Schedule flexibility**: "Leave at" / "Arrive by" planning with ±15 min buffer
-
----
-
-## Reinforcement Learning (RL) — The Brain of MoveWise
-
-MoveWise uses a **Deep Q-Network (DQN)** as its recommendation engine. The RL agent learns from each user's behavior to rank routes using a **Generalised Cost (GC) function**:
-
-```
-GC(route) = α₁·Time + α₂·Cost + α₃·Comfort + α₄·CO₂ + α₅·Transfers + α₆·Reliability
-```
-
-Where α₁...α₆ are **personalised weights** derived from the user's behavioral profile.
-
-### HUR Behavioral Model
-
-The RL agent is grounded in the **HUR (Habits–Utility–Rationality) model**, which captures three dimensions of human decision-making:
-
-- **Habits (H)** — Habit strength parameter: how likely the user is to repeat past choices regardless of alternatives
-- **Utility (U)** — Traditional utility maximisation: time, cost, comfort trade-offs
-- **Rationality (R)** — Bounded rationality: loss aversion, status bias, social influence
-
-### Nudge Selection
-
-A second RL agent selects the **optimal behavioral nudge** for each user and context:
-
-```
-Nudge*(i,t) = argmax Q̂(s_i^t, nudge; θ_nudge)
-```
-
-Nudge types include:
-- **Social proof**: "87% of students on your route take the train"
-- **Loss framing**: "You're losing €450/month on hidden car costs"
-- **Commitment device**: "Try PT for 1 week — free ride back if you don't like it"
-- **Streak reward**: "5-day green streak! Don't break it!"
-- **Anchoring**: "Car: €510/mo vs PT: €55/mo — that's €5,460/yr saved"
-
----
-
-## RL Engine Implementation (`rl_engine/`)
-
-The `rl_engine/` module is a **fully functional Python implementation** of the RL formulation described above, based on `RL_MaaS_Formulation_v3.tex`. It replaces the static mock data with live, trained RL decisions.
-
-### Architecture
+## Architecture
 
 ```text
-rl_engine/
-├── config.py              # Mode profiles, Giuseppe's profile, HUR parameters, reward weights
-├── generalized_cost.py    # Full GC with Prospect Theory (μ=2.25), context-dependent VOT
-├── environment.py         # MDP: 18-dim state, 49 compound actions, HUR acceptance model
-├── agent.py               # Double DQN + separate nudge Q-network (Eq. 5)
-├── train.py               # Training pipeline + evaluation + PDF visualization
-├── api.py                 # FastAPI backend for React frontend integration
-├── requirements.txt       # Python dependencies (numpy, torch, matplotlib, fastapi)
-└── README.md              # Detailed RL engine documentation
++---------------------------+       HTTP/JSON        +---------------------------+
+|    React Frontend         | <--------------------> |    RL Engine (FastAPI)     |
+|    (Vite + Three.js)      |    /api/routes          |    Double DQN Agent       |
+|                           |    /api/nudge/select    |    Nudge Q-Network        |
+|  - Route Planner          |    /api/user/profile    |    GC Ranker              |
+|  - QR Payment             |    /api/user/trip       |    HUR Acceptance Model   |
+|  - Gamification           |    /api/carbon          |    Environment (MDP)      |
+|  - Insurance Hub          |    /api/adoption        |    Training Pipeline      |
+|  - Carpool Matching       |                         |                           |
++---------------------------+                         +---------------------------+
+        |                                                       |
+        | Port 5173                                             | Port 8000
+        +-------------------------------------------------------+
+                              Docker Compose
 ```
 
-### Key Technical Features
+---
+
+## RL Engine
+
+The `rl_engine/` module is a complete Python implementation of the RL formulation described in `RL_MaaS_Formulation_v3.tex`. It replaces the static mock data with live, trained RL decisions.
+
+### Formulation Summary
 
 | Component | Implementation | Reference |
-|-----------|---------------|-----------|
-| **State Space** | 18 dimensions (habit, eco-sensitivity, loss aversion, phase, weather, trip type, engagement...) | v3 Eq. 3 |
-| **Action Space** | Compound: 7 transport modes × 7 nudge types = 49 actions | v3 §7.2 |
-| **Reward** | 5-component: −[w₁·GC + w₂·CO₂ + w₃·Ψ_behavior + w₄·Φ_constraints] + w₅·Revenue | v3 Eq. 4 |
-| **GC Function** | Multi-component with transfer penalties (3.5 EUR, Wardman 2004), productivity-adjusted VOT | v3 §5 |
-| **Prospect Theory** | Loss aversion μ = 2.25 — switching costs feel 2.25× worse (Kahneman & Tversky, 1979) | v3 §5 |
-| **Behavioral Model** | HUR acceptance: habit resistance + utility + eco-motivation + nudge effectiveness | v3 §6 |
-| **Habit Decay** | H_t = H₀ · e^{−α·green_trips} — exponential decay as user adopts green modes | v3 Eq. 2 |
-| **Phase Adoption** | 4-phase progressive mode unlocking (C10 constraint) | v3 §8 |
-| **Nudge Agent** | Separate Q-network for personalised nudge selection | v3 Eq. 5 |
-| **Data Quality** | C11 constraint — prefer modes that generate observable QR data | v3 Eq. 6 |
+|---|---|---|
+| State Space | 18 dimensions (habit, eco-sensitivity, loss aversion, phase, weather, trip type, engagement, ...) | v3 Eq. 3 |
+| Action Space | Compound: 7 transport modes x 7 nudge types = 49 actions | v3 Sec. 7.2 |
+| Reward | 5-component: -[w1 GC + w2 CO2 + w3 Psi_behavior + w4 Phi_constraints] + w5 Revenue | v3 Eq. 4 |
+| GC Function | Multi-component with transfer penalties (3.5 EUR, Wardman 2004), productivity-adjusted VOT | v3 Sec. 5 |
+| Prospect Theory | Loss aversion mu = 2.25 (switching costs amplified) | v3 Sec. 5 |
+| Behavioral Model | HUR acceptance: habit resistance + utility + eco-motivation + nudge effectiveness | v3 Sec. 6 |
+| Habit Decay | H_t = H_0 * exp(-alpha * green_trips) | v3 Eq. 2 |
+| Phase Adoption | 4-phase progressive mode unlocking (constraint C10) | v3 Sec. 8 |
+| Nudge Agent | Separate Q-network: Nudge*(i,t) = argmax Q_hat(s, nudge; theta_nudge) | v3 Eq. 5 |
+| Data Quality | C11 constraint: prefer modes generating observable QR data | v3 Eq. 6 |
 
-### Training Results
+### Generalized Cost
 
-Training on Giuseppe's profile (23-year-old student, Caselle Torinese → Orbassano, 11 km):
+The GC function decomposes the cost of each transport mode into:
 
-| Metric | Before RL | After 500 Episodes | Change |
-|--------|-----------|-------------------|--------|
-| Green Trip Ratio | 0% | **70.5%** | ↑ 70.5 pp |
-| CO₂ Saved (7-week sim) | 0 kg | **85.4 kg** | New savings |
-| Car Habit Strength | 0.70 | **0.10** | ↓ 85.7% |
-| Adoption Phase | 0 (Onboarding) | **3 (Optimised)** | Full journey |
-| User Satisfaction | 0.50 | **0.52** | Maintained |
-
-### Quick Start (RL Engine)
-
-```bash
-# Install dependencies
-pip install -r rl_engine/requirements.txt
-
-# Run full training pipeline (GC analysis → DQN training → evaluation → PDF)
-python -m rl_engine.train
-
-# Start the API server (replaces mockData.js with live RL decisions)
-uvicorn rl_engine.api:app --reload --port 8000
+```
+GC = Time_cost + Monetary_cost + Transfer_penalty + Reliability_penalty
+     + Comfort_penalty + Walking_penalty + Environmental_cost
+     + Weather_penalty + Peak_penalty
 ```
 
-### Docker Support
+Each component uses context-dependent parameters. The Value of Time (VOT) is adjusted for productivity: time on a train where the user can study is valued differently than time spent driving.
 
-```bash
-# Build and start the full stack (RL API + React frontend)
-docker compose up
+A Prospect Theory adjustment amplifies the perceived cost of switching away from the status quo (car), reflecting the empirical finding that losses are felt 2.25x more strongly than equivalent gains.
 
-# Run training only
-docker compose --profile training run rl-train
-```
+### Transport Modes
 
-### API Endpoints
+Seven modes are defined for the Caselle Torinese to Orbassano corridor (approximately 11 km):
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/routes/{trip_type}` | GET | Ranked routes with GC scores (replaces `mockData.routeOptions`) |
-| `/api/nudge/select` | GET | Optimal nudge for current user state |
-| `/api/user/profile` | GET | Behavioral parameters (powers ProfileScreen HUR display) |
-| `/api/user/trip` | POST | Record a trip, get updated habit/phase/points |
-| `/api/simulation/run` | GET | Run a full training demo |
+| Mode | Travel Time | Cost | CO2/trip | Phase |
+|---|---|---|---|---|
+| Car (Passenger) | 45 min | EUR 5.00 | 4.20 kg | 0 |
+| Car (Driver) | 45 min | EUR 5.00 | 4.20 kg | 0 |
+| P&R + Train | 40 min | EUR 3.75 | 2.10 kg | 0 |
+| E-Scooter + Train + Walk | 30 min | EUR 4.20 | 0.84 kg | 1 |
+| Bus + Train + Walk | 38 min | EUR 2.80 | 1.60 kg | 0 |
+| Carpool + Walk | 29 min | EUR 2.70 | 2.10 kg | 2 |
+| Walk + Train + Bike | 40 min | EUR 2.50 | 0.21 kg | 1 |
 
----
+Emission factors from EEA 2024: Car 140 g/km, Bus 68 g/km, Train 14 g/km, E-Scooter 22 g/km.
 
-## Features in Detail
+### Nudge Strategies
 
-### Core Features
+Seven behavioral nudge types are implemented, based on Thaler and Sunstein (2008):
 
-#### RL-Powered Route Planner
-- **4 smart tabs**: Best For You (RL-ranked), Cheapest, Fastest, Greenest
-- **5 multimodal routes** per search with different modal combinations
-- Each route shows time, cost, CO₂ savings, comfort level, reliability, and Green Points
-- Interactive 3D route arc visualisation
-- Origin/Destination inputs with swap, time selection (Leave at / Arrive by)
-
-#### QR Tap-In / Tap-Out Payment
-- Unified QR code for all transport modes (bus, train, e-scooter, bike)
-- **Expandable journey timeline**: click any step to see provider, cost, departure time, route details
-- Real-time status tracking (Done ✅ / Active ⏳ / Pending ○)
-- NFC alternative tap
-- Digital wallet with balance, budget bar, transaction history
-- **3 subscription plans**: Pay-as-you-go, Monthly PT Bundle (€49), Premium (€65)
-
-#### Carpooling
-- Peer-to-peer ride matching among university students
-- Route overlap % and detour estimation
-- Live OpenStreetMap integration via Leaflet
-- Ride history with past trips, ratings, and CO₂ savings
-- Safety & community features: verified profiles, ride ratings
-- Cost splitting with fair pricing
-
-#### Insurance & Parking Hub
-- **Premium calculator**: Current vs potential premium with PT usage
-- **Coverage management**: 8 coverage options with real-time monthly premium calculation; toggle coverages and see price impact instantly
-- **Parking finder**: 3 P&R spots along corridor with live availability
-- **Fuel prices**: Nearby stations with current prices
-- **AI chatbot**: Insurance assistant with keyword-based responses for premiums, coverage, claims, parking, and discounts
-- **Claims center**: Emergency contacts, claim filing
-
-#### Gamification & Rewards
-- **Green Points** system with earning and redemption
-- **Rewards catalog**: Redeem points for GTT passes, e-scooter rides, café vouchers, bike passes, cinema tickets, tree planting
-- **Community leaderboard** with CO₂ savings ranking
-- **Active challenges**: Weekly goals with progress tracking
-- **Badge collection**: 8 achievement badges (earned + locked)
-- **Carbon emissions 3D skyline**: Visual breakdown by transport mode
-
-#### Profile Hub
-- **Interactive Priority Levels**: Tap to cycle Time, Cost, Comfort, CO₂ between Low/Medium/High
-- **14 travel preferences**: Toggle switches that feed the RL engine (seated, Wi-Fi, fewer transfers, weather-proof, etc.)
-- **RL Behavioral Profile**: Live visualisation of HUR model parameters
-- **True Cost Calculator**: Side-by-side perceived vs actual car costs with full breakdown
-- **Carbon Budget**: Monthly ring chart with yearly projection
-- **Privacy & Support**: GDPR data export, account deletion, support chat
-
-### UX & Onboarding
-
-#### Professional Consent Prompt
-- GDPR-compliant with 6 legal articles covering:
-  - Definitions, Terms of Service, Data Collection & Privacy
-  - Your Rights (access, rectification, erasure, portability, objection)
-  - Insurance Data Sharing, Carpooling Terms
-- Actual logo branding
-- Summary cards for Terms, Privacy, and Insurance
-
-#### 9-Step Overlay Tutorial
-- Interactive tutorial with 3D robot assistant (Movi)
-- Semi-transparent backdrop that shows the actual app underneath
-- **Bold keywords** highlighting important concepts
-- Progress bar + navigation dots + skip button
-- Steps cover: Welcome, AI Recommendations, Route Planning, QR Payment, Adoption Journey, Insurance, Rewards, Carpooling, Completion
-
-#### Interactive Phone Shell
-- iPhone-style frame (393×852px) with realistic notch
-- 5-tab bottom navigation (Home, Trips, Pay, Rank, Profile)
-- Branded gradient headers with contextual icons
-- Toast notification system for user feedback
+| Nudge | Mechanism | Example |
+|---|---|---|
+| Default Green | Default Effect | Green option shown first |
+| Social Proof | Conformity | "87% of students on your route take the train" |
+| Loss Frame | Prospect Theory | "You are losing EUR 450/month on hidden car costs" |
+| Carbon Budget | Salience | Monthly carbon usage visualization |
+| Streak Reminder | Commitment | "5-day green streak, keep it going" |
+| Commitment Device | Foot-in-door | "Try PT for 1 week, free ride back if not satisfied" |
+| Anchoring | Anchoring bias | "Car: EUR 510/mo vs PT: EUR 55/mo" |
 
 ---
 
-## Technology Stack
+## React Frontend
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Framework** | React 18.3 + Vite 5 | Component-based UI with fast HMR |
-| **3D Graphics** | Three.js + @react-three/fiber + @react-three/drei | Route arc, QR parallax, wallet cards, TutorBot robot, trophy, emissions skyline |
-| **Maps** | Leaflet + react-leaflet 4.2 (OpenStreetMap) | Carpool route visualisation, live map |
-| **Styling** | CSS custom properties + responsive design | Consistent theming, mobile-first layout |
-| **State Management** | React hooks (useState, useEffect, useMemo, useRef) | Local component state, no external state library needed |
-| **Build** | Vite 5 with @vitejs/plugin-react | ESM-based bundling, optimised production builds |
-| **Data** | Mock data in JS modules | Structured data with API endpoint annotations for production |
+The frontend is a fully interactive prototype built with React 18, Vite 5, Three.js, and Leaflet. It demonstrates the complete user experience within an iPhone-style phone frame.
 
-### Architecture Decisions
+### Core Screens
 
-- **No backend required** — All data is mocked for the hackathon demo. Every data source is annotated with `🔌 API NEEDED` comments specifying the exact endpoint, parameters, and provider needed for production
-- **Unicode escape sequences** — All emoji in JSX use `\u{XXXXX}` format for cross-platform encoding safety
-- **CSS-only animations** — Pulse dots, slide-ups, fade-ins without runtime JS overhead
-- **3D performance** — React Three Fiber with Suspense boundaries for lazy loading; lightweight geometries
-- **Accessibility** — ARIA labels on interactive elements, semantic HTML, keyboard navigable
+| Screen | Description |
+|---|---|
+| Home | Services grid, RL-powered trip suggestion, adoption journey progress |
+| Trips | Route planner with four smart tabs (Best for You, Cheapest, Fastest, Greenest), 3D route arc, origin/destination inputs |
+| Pay | QR tap-in/tap-out payment, expandable journey timeline, digital wallet, subscription plans |
+| Rankings | Leaderboard, active challenges, badge collection, rewards catalog, 3D emissions skyline |
+| Profile | Priority levels, 14 travel preferences, RL behavioral profile (HUR visualization), true cost calculator, carbon budget |
+| Insurance | Premium calculator, 8 coverage toggles, parking finder, AI chatbot, claims center |
+| Carpool | Peer matching with route overlap, Leaflet map, ride history, safety features |
 
-### External API Integrations (Production Roadmap)
+### Onboarding
 
-| API | Provider | Purpose |
-|-----|----------|---------|
-| Route Planning | Google Routes API / HERE Transit / OpenTripPlanner + GTFS | Multimodal route computation |
-| Real-time Transit | GTT Open Data / Trenitalia API | Live departures, delays, capacity |
-| E-Scooter Availability | Voi / Lime MDS API | Real-time scooter locations and pricing |
-| Bike Sharing | ToBike API | Station availability, bike count |
-| QR Payments | Stripe / Satispay / Nexi | Secure tokenised transactions |
-| Insurance | UnipolSai / Generali via IVASS | Premium calculation, policy management |
-| Carbon Calculation | EEA 2024 emission factors | Per-trip and cumulative CO₂ tracking |
-| Gamification | Custom microservice | Points, leaderboard, challenges, badges |
-| User Profiling | RL behavioral engine (HUR model) | Personalised weight vectors |
-| Maps | OpenStreetMap / Mapbox | Tile rendering, geocoding |
+- GDPR-compliant consent prompt with 6 legal articles
+- 9-step interactive tutorial with 3D robot assistant
+- Persistent consent and tutorial state via localStorage
 
 ---
 
-## Project Structure
+## Getting Started
 
-```text
-rl_engine/                         # ← NEW: Full RL backend (Python)
-  config.py                        # Mode profiles, user params, HUR constants, reward weights
-  generalized_cost.py              # GC function with Prospect Theory (μ=2.25), context-dependent VOT
-  environment.py                   # MDP: 18-dim state, 49 actions, HUR acceptance, phased adoption
-  agent.py                         # Double DQN + nudge Q-network (v3 Eq. 5)
-  train.py                         # Training pipeline (500 ep) + evaluation + PDF visualisation
-  api.py                           # FastAPI server — replaces mockData.js with live RL decisions
-  requirements.txt                 # Python dependencies
-  README.md                        # Detailed RL engine documentation
+### Prerequisites
 
-movewise-react/                    # React frontend (Vite + Three.js + Leaflet)
-  src/
-    App.jsx                    # Root: consent → splash → onboarding overlay → main routing
-    main.jsx                   # Entry point + Leaflet CSS import
-    data/
-      mockData.js              # All mock data (routes, carpool, insurance, wallet, etc.)
-    components/
-      PhoneShell.jsx           # iPhone frame + overlay support
-      BottomNav.jsx            # 5-tab navigation
-      HomeScreen.jsx           # Services grid, RL trip suggestion, adoption journey
-      TripsScreen.jsx          # Route planner: OD inputs, 3D arc, 4 tabs with 5 routes each
-      PayScreen.jsx            # QR payment, expandable journey timeline, wallet, plans
-      RankingsScreen.jsx       # Leaderboard, challenges, badges, rewards catalog
-      ProfileScreen.jsx        # Profile hub: priorities, preferences, insurance, carbon, RL profile
-      UserProfileScreen.jsx    # Extended behavioral profile
-      InsuranceScreen.jsx      # Coverage with pricing, parking, claims, AI chatbot
-      CarpoolScreen.jsx        # Ride matching, Leaflet map, history, safety & community
-      ConsentPrompt.jsx        # GDPR consent + full legal terms page (6 articles)
-      OnboardingTutorial.jsx   # 9-step overlay tutorial with 3D robot + bold keyword text
-      SplashScreen.jsx         # Branded splash screen with 3D city
-      three/                   # 3D components (RouteArc, QRParallax, CardStack, TutorBot, Trophy, EmissionsSkyline, CityFlyIn)
-      ui/                      # Shared UI (Card, NudgeBanner)
-    styles/
-      app.css                  # All styles (~3200+ lines)
-  public/
-    assets/
-      logo.jpg                 # MoveWise logo
-
-Dockerfile                         # Python 3.11-slim, CPU-only PyTorch, health check
-docker-compose.yml                 # 3 services: rl-engine, frontend, rl-train
-.dockerignore                      # Excludes .git, node_modules, .pth, __pycache__
-```
-
----
-
-## Install and Run
+- Python 3.9+ with pip
+- Node.js 18+ with npm
+- Docker and Docker Compose (optional)
 
 ### Option A: Docker (recommended)
 
 ```bash
-docker compose up          # Starts RL API (port 8000) + React frontend (port 5173)
+git clone https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer.git
+cd RL-Mobility-Optimizer
+docker compose up
 ```
 
-### Option B: Manual
+This starts the RL API on port 8000 and the React frontend on port 5173.
+
+### Option B: Manual Setup
+
+**RL Engine:**
+
+```bash
+pip install -r rl_engine/requirements.txt
+python -m rl_engine.train                # Train the DQN (500 episodes, approximately 2 min)
+uvicorn rl_engine.api:app --port 8000    # Start the API server
+```
 
 **Frontend:**
+
 ```bash
 cd movewise-react
 npm install
 npm run dev
 ```
 
-**RL Engine:**
+### Training Only (Docker)
+
 ```bash
-pip install -r rl_engine/requirements.txt
-python -m rl_engine.train              # Train the DQN (500 episodes, ~2 min)
-uvicorn rl_engine.api:app --port 8000  # Start the API server
+docker compose --profile training run rl-train
 ```
 
-## Build for Production
+### Build for Production
 
 ```bash
+cd movewise-react
 npm run build
 npm run preview
 ```
 
+---
+
+## API Reference
+
+All endpoints return data in the exact shape expected by the React frontend components, enabling a drop-in replacement of `mockData.js` with `fetch()` calls.
+
+| Endpoint | Method | Description | Frontend Consumer |
+|---|---|---|---|
+| `/api/health` | GET | Health check and model status | -- |
+| `/api/routes/{trip_type}` | GET | RL-ranked routes matching `routeOptions` shape | TripsScreen, HomeScreen |
+| `/api/nudge/select` | GET | Optimal nudge matching `nudges[i]` shape | HomeScreen (NudgeBanner) |
+| `/api/nudge/all` | GET | All nudges matching `nudges` array | -- |
+| `/api/user/profile` | GET | Full profile matching `userProfile` shape | ProfileScreen, HomeScreen, RankingsScreen |
+| `/api/carbon` | GET | Carbon budget matching `carbonData` shape | ProfileScreen, RankingsScreen |
+| `/api/adoption` | GET | Adoption phases with live status | HomeScreen |
+| `/api/user/trip` | POST | Record a trip, returns updated habit/phase/points | -- |
+| `/api/simulation/run` | GET | Run a training simulation | -- |
+| `/api/simulation/status` | GET | Training progress | -- |
+
+### Route Response Shape
+
+Each route in the `/api/routes/{trip_type}` response contains:
+
+```json
+{
+  "id": 1,
+  "title": "E-Scooter + Train + Walk",
+  "label": "RL Recommended",
+  "subtitle": "Personalized by AI based on your behavioral profile",
+  "segments": [
+    {"mode": "scooter_icon", "name": "E-Scooter", "duration": "7 min", "provider": "Voi"},
+    {"mode": "train_icon", "name": "Train SFM1", "duration": "18 min", "provider": "GTT"},
+    {"mode": "walk_icon", "name": "Walk", "duration": "5 min", "provider": ""}
+  ],
+  "totalTime": "30 min",
+  "cost": "EUR 4.20",
+  "co2": "-80%",
+  "co2Saved": "3.4 kg",
+  "reliability": "89%",
+  "comfort": "High",
+  "greenPoints": 50,
+  "gcScore": 12.4,
+  "tags": ["Seated train", "Can study", "Wi-Fi"]
+}
+```
+
+---
+
+## Training Results
+
+Trained on Giuseppe's profile (23-year-old medical student, Caselle Torinese to Orbassano, 11 km, 3 commute days per week):
+
+| Metric | Before RL | After 500 Episodes | Change |
+|---|---|---|---|
+| Green Trip Ratio | 0% | 70.5% | +70.5 pp |
+| CO2 Saved (7-week sim) | 0 kg | 85.4 kg | New savings |
+| Car Habit Strength | 0.70 | 0.10 | -85.7% |
+| Adoption Phase | 0 (Onboarding) | 3 (Optimised) | Full journey |
+| User Satisfaction | 0.50 | 0.52 | Maintained |
+
+The training pipeline generates a 4-page PDF visualization (`rl_engine/RL_Training_Results.pdf`) with reward convergence curves, green ratio progression, CO2 savings over time, and habit decay plots.
+
+---
+
+## Project Structure
+
+```text
+rl_engine/                           Python RL backend
+  config.py                          Mode profiles, user params, HUR constants, reward weights
+  generalized_cost.py                GC function with Prospect Theory, context-dependent VOT
+  environment.py                     MDP: 18-dim state, 49 actions, HUR acceptance, phased adoption
+  agent.py                           Double DQN + nudge Q-network
+  train.py                           Training pipeline + evaluation + PDF visualization
+  api.py                             FastAPI server (matches mockData.js response shapes)
+  requirements.txt                   Python dependencies
+  README.md                          RL engine documentation
+
+movewise-react/                      React frontend (Vite + Three.js + Leaflet)
+  src/
+    App.jsx                          Root component: consent, splash, onboarding, main routing
+    main.jsx                         Entry point
+    data/mockData.js                 Static data with API endpoint annotations
+    components/                      12 screen components + 7 Three.js 3D components + shared UI
+    styles/app.css                   All styles (3200+ lines)
+  package.json                       Node.js dependencies and scripts
+
+Dockerfile                           Python 3.11-slim, CPU-only PyTorch, health check
+docker-compose.yml                   Three services: rl-engine, frontend, rl-train
+.dockerignore                        Excludes .git, node_modules, model weights
+.github/
+  workflows/ci.yml                   CI pipeline: RL tests, frontend build, Docker build
+  ISSUE_TEMPLATE/                    Bug report and feature request templates
+  pull_request_template.md           PR checklist with formulation references
+
+CHANGELOG.md                         Version history
+CITATION.cff                         Citation metadata for academic use
+CONTRIBUTING.md                      Development guidelines and code style
+SECURITY.md                          Vulnerability reporting policy
+LICENSE                              MIT License
+```
+
+---
+
+## Technology Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| RL Engine | Python, PyTorch, NumPy | DQN training, GC computation, behavioral modeling |
+| API | FastAPI, Uvicorn, Pydantic | REST endpoints for frontend integration |
+| Frontend | React 18.3, Vite 5 | Component-based UI with fast HMR |
+| 3D Graphics | Three.js, React Three Fiber, Drei | Route arc, QR parallax, wallet cards, tutorial robot |
+| Maps | Leaflet, React-Leaflet, OpenStreetMap | Carpool route visualization |
+| Containerization | Docker, Docker Compose | Reproducible deployment |
+| CI/CD | GitHub Actions | Automated testing on push and PR |
+
+---
+
+## Impact Summary
+
+| Metric | Per User / Year | Scaled to 1,000 Users |
+|---|---|---|
+| CO2 reduced | 1,000 kg | 1,000 tonnes |
+| Money saved | EUR 5,460 | EUR 5.46 million |
+| Time saved | 130 hours | 130,000 hours |
+| Cars removed from peak traffic | 1 | 1,000 |
+
+---
+
 ## Troubleshooting
 
-If `npm` is not recognized:
-1. Install Node.js LTS from https://nodejs.org/
-2. Reopen terminal
-3. Verify: `node -v` and `npm -v`
+**Node.js not found:** Install Node.js LTS from https://nodejs.org, restart your terminal, and verify with `node -v`.
 
-### Resetting Consent & Onboarding Tutorial
-
-MoveWise stores two flags in your browser's `localStorage` to remember that you've already accepted the consent screen and completed the onboarding tutorial. This means on subsequent visits the app skips straight to the main experience — exactly like a real production app would behave.
-
-**If you want to see the full onboarding flow again** (e.g. for a demo, presentation, or to show evaluators the consent + tutorial UX), open the browser Developer Console (`F12` → **Console** tab) and run:
+**Resetting onboarding state:** MoveWise persists consent and tutorial completion in localStorage. To see the full onboarding flow again:
 
 ```js
 localStorage.removeItem("movewise_consent");
@@ -446,31 +376,37 @@ localStorage.removeItem("movewise_onboarded");
 location.reload();
 ```
 
-| Command | What it does |
-|---------|-------------|
-| `localStorage.removeItem("movewise_consent")` | Clears the consent acceptance — you'll see the GDPR consent screen again on reload |
-| `localStorage.removeItem("movewise_onboarded")` | Clears the tutorial completion — you'll see the 9-step onboarding tutorial again |
-| `location.reload()` | Refreshes the page so the cleared flags take effect |
-
-You can also reset just one of them if you only want to re-trigger the consent **or** the tutorial, not both.
-
-> **Why do we persist these flags?** In a real MaaS app, asking users to re-consent every time they open the app would be a terrible UX and potentially non-compliant with GDPR best practices (consent should be collected once and recorded). The tutorial similarly should only appear for first-time users. `localStorage` provides lightweight client-side persistence that survives page refreshes and browser restarts.
+**Docker port conflicts:** Ensure ports 5173 and 8000 are not in use before running `docker compose up`.
 
 ---
 
-## Impact Summary
+## Contributing
 
-| Metric | Per User/Year | Scaled (1,000 users) |
-|--------|--------------|---------------------|
-| CO₂ reduced | 1,000 kg | 1,000 tonnes |
-| Money saved | €5,460 | €5.46 million |
-| Time saved | 130 hours | 130,000 hours |
-| Cars off road (peak) | 1 | 1,000 |
-| Green Points generated | 18,000 | 18 million |
-
-MoveWise doesn't just plan routes — it **transforms mobility behavior** through AI personalisation, economic transparency, insurance incentives, and gamification. Every trip planned through MoveWise is a step toward cleaner air, less congestion, and a more sustainable city.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines, code style conventions, and the pull request process.
 
 ---
 
-> *Built for NEXUS 2026 Hackathon — Politecnico di Torino*  
-> *Team project — March 2026*
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## Citation
+
+If you use this work in academic research, please cite:
+
+```bibtex
+@software{movewise2026,
+  author    = {Vaezi, Ali and Shahali, Sajjad and Salimi, Kiana},
+  title     = {MoveWise: Reinforcement Learning for Behaviorally-Aware Mobility-as-a-Service},
+  year      = {2026},
+  url       = {https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer},
+  version   = {0.4.0},
+  institution = {Politecnico di Torino}
+}
+```
+
+---
+
+*Built for NEXUS 2026 Hackathon -- Politecnico di Torino*

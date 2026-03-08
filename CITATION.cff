@@ -1,0 +1,39 @@
+# Cite this repository
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "MoveWise: Reinforcement Learning for Behaviorally-Aware Mobility-as-a-Service"
+type: software
+authors:
+  - family-names: Vaezi
+    given-names: Ali
+    affiliation: Politecnico di Torino
+  - family-names: Shahali
+    given-names: Sajjad
+    affiliation: Politecnico di Torino
+  - family-names: Salimi
+    given-names: Kiana
+    affiliation: Politecnico di Torino
+version: 0.4.0
+date-released: 2026-03-08
+license: MIT
+url: "https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer"
+repository-code: "https://github.com/Sajjad-Shahali/RL-Mobility-Optimizer"
+keywords:
+  - reinforcement-learning
+  - mobility-as-a-service
+  - sustainable-transport
+  - behavioral-economics
+  - deep-q-network
+  - nudge-theory
+  - generalized-cost
+  - prospect-theory
+  - urban-mobility
+  - maas
+abstract: >-
+  MoveWise is a Mobility-as-a-Service platform that uses a Double Deep Q-Network
+  to recommend sustainable multimodal transport options. The RL agent personalizes
+  route rankings using a Generalized Cost function grounded in Prospect Theory
+  (loss aversion mu = 2.25) and the HUR (Habits-Utility-Rationality) behavioral model.
+  A separate nudge Q-network selects optimal behavioral interventions. Trained on a
+  simulated user profile (Caselle Torinese to Orbassano corridor, Turin), the agent
+  achieves a 70% green trip ratio and 85 kg CO2 savings over a 7-week simulation period.
