@@ -324,12 +324,27 @@ If `npm` is not recognized:
 2. Reopen terminal
 3. Verify: `node -v` and `npm -v`
 
-To reset the app state (re-trigger consent + tutorial):
+### Resetting Consent & Onboarding Tutorial
+
+MoveWise stores two flags in your browser's `localStorage` to remember that you've already accepted the consent screen and completed the onboarding tutorial. This means on subsequent visits the app skips straight to the main experience — exactly like a real production app would behave.
+
+**If you want to see the full onboarding flow again** (e.g. for a demo, presentation, or to show evaluators the consent + tutorial UX), open the browser Developer Console (`F12` → **Console** tab) and run:
+
 ```js
 localStorage.removeItem("movewise_consent");
 localStorage.removeItem("movewise_onboarded");
+location.reload();
 ```
-Then refresh the page.
+
+| Command | What it does |
+|---------|-------------|
+| `localStorage.removeItem("movewise_consent")` | Clears the consent acceptance — you'll see the GDPR consent screen again on reload |
+| `localStorage.removeItem("movewise_onboarded")` | Clears the tutorial completion — you'll see the 9-step onboarding tutorial again |
+| `location.reload()` | Refreshes the page so the cleared flags take effect |
+
+You can also reset just one of them if you only want to re-trigger the consent **or** the tutorial, not both.
+
+> **Why do we persist these flags?** In a real MaaS app, asking users to re-consent every time they open the app would be a terrible UX and potentially non-compliant with GDPR best practices (consent should be collected once and recorded). The tutorial similarly should only appear for first-time users. `localStorage` provides lightweight client-side persistence that survives page refreshes and browser restarts.
 
 ---
 
