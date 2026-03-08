@@ -5,6 +5,60 @@
 
 ---
 
+## Reinforcement Learning (RL) — The Brain of MoveWise
+
+MoveWise uses a **Deep Q-Network (DQN)** implemented in PyTorch (`rl_engine/agent.py`) as its recommendation engine. The RL agent learns from each user's behavior to rank routes using a **Generalised Cost (GC) function** (`rl_engine/generalized_cost.py`):
+
+```
+GC(route) = C_time + C_monetary + P_transfer + P_reliability
+           + P_comfort + P_walking + C_environment + P_weather + P_peak
+```
+
+With **Prospect Theory** adjustment (Kahneman & Tversky, 1979): switching costs are perceived 2.25× worse than equivalent gains, explaining why car users resist change.
+
+### MDP Formulation (`rl_engine/environment.py`)
+
+- **State space** (18 dimensions): habit strength, eco sensitivity, loss aversion, adoption phase, weather, trip type, green streak, CO₂ saved, budget remaining, satisfaction, app engagement, and more
+- **Action space**: 7 transport modes × 7 nudge types = 49 compound actions
+- **Reward function** (5 components): −GC − emissions − behavior penalty − constraint penalty + revenue + nudge bonus
+- **Transitions**: Habit decay H_t = H₀·e^{−α·green_trips}, phase progression (0→1→2→3)
+
+### Training Results
+
+Training 500 episodes (8 trips/week × 7 weeks per episode) demonstrates Giuseppe's behavior change:
+
+| Metric | Before RL | After RL |
+|--------|-----------|----------|
+| Green trip ratio | 0% | ~70% |
+| CO₂ saved per simulation | 0 kg | ~85 kg |
+| Habit strength (car dependency) | 0.70 | 0.10 |
+| Adoption phase | 0 | 3 |
+
+### HUR Behavioral Model
+
+The RL agent is grounded in the **HUR (Habits–Utility–Rationality) model**, which captures three dimensions of human decision-making:
+
+- **Habits (H)** — Habit strength parameter: how likely the user is to repeat past choices regardless of alternatives
+- **Utility (U)** — Traditional utility maximisation: time, cost, comfort trade-offs
+- **Rationality (R)** — Bounded rationality: loss aversion, status bias, social influence
+
+### Nudge Selection
+
+A second RL agent selects the **optimal behavioral nudge** for each user and context:
+
+```
+Nudge*(i,t) = argmax Q̂(s_i^t, nudge; θ_nudge)
+```
+
+Nudge types include:
+- **Social proof**: "87% of students on your route take the train"
+- **Loss framing**: "You're losing €450/month on hidden car costs"
+- **Commitment device**: "Try PT for 1 week — free ride back if you don't like it"
+- **Streak reward**: "5-day green streak! Don't break it!"
+- **Anchoring**: "Car: €510/mo vs PT: €55/mo — that's €5,460/yr saved"
+
+---
+
 ## The Problem: Unsustainable Urban Mobility
 
 Urban transportation is the single largest contributor to CO₂ emissions in European cities, accounting for **30% of total EU greenhouse gas emissions** (European Environment Agency, 2024). In the Torino metropolitan area alone:
@@ -117,60 +171,6 @@ Additionally:
 - **No parking search**: Eliminates 10–15 min average parking time near campus
 - **Real-time optimisation**: Routes adapt to live traffic, delays, and weather
 - **Schedule flexibility**: "Leave at" / "Arrive by" planning with ±15 min buffer
-
----
-
-## Reinforcement Learning (RL) — The Brain of MoveWise
-
-MoveWise uses a **Deep Q-Network (DQN)** implemented in PyTorch (`rl_engine/agent.py`) as its recommendation engine. The RL agent learns from each user's behavior to rank routes using a **Generalised Cost (GC) function** (`rl_engine/generalized_cost.py`):
-
-```
-GC(route) = C_time + C_monetary + P_transfer + P_reliability
-           + P_comfort + P_walking + C_environment + P_weather + P_peak
-```
-
-With **Prospect Theory** adjustment (Kahneman & Tversky, 1979): switching costs are perceived 2.25× worse than equivalent gains, explaining why car users resist change.
-
-### MDP Formulation (`rl_engine/environment.py`)
-
-- **State space** (18 dimensions): habit strength, eco sensitivity, loss aversion, adoption phase, weather, trip type, green streak, CO₂ saved, budget remaining, satisfaction, app engagement, and more
-- **Action space**: 7 transport modes × 7 nudge types = 49 compound actions
-- **Reward function** (5 components): −GC − emissions − behavior penalty − constraint penalty + revenue + nudge bonus
-- **Transitions**: Habit decay H_t = H₀·e^{−α·green_trips}, phase progression (0→1→2→3)
-
-### Training Results
-
-Training 500 episodes (8 trips/week × 7 weeks per episode) demonstrates Giuseppe's behavior change:
-
-| Metric | Before RL | After RL |
-|--------|-----------|----------|
-| Green trip ratio | 0% | ~70% |
-| CO₂ saved per simulation | 0 kg | ~85 kg |
-| Habit strength (car dependency) | 0.70 | 0.10 |
-| Adoption phase | 0 | 3 |
-
-### HUR Behavioral Model
-
-The RL agent is grounded in the **HUR (Habits–Utility–Rationality) model**, which captures three dimensions of human decision-making:
-
-- **Habits (H)** — Habit strength parameter: how likely the user is to repeat past choices regardless of alternatives
-- **Utility (U)** — Traditional utility maximisation: time, cost, comfort trade-offs
-- **Rationality (R)** — Bounded rationality: loss aversion, status bias, social influence
-
-### Nudge Selection
-
-A second RL agent selects the **optimal behavioral nudge** for each user and context:
-
-```
-Nudge*(i,t) = argmax Q̂(s_i^t, nudge; θ_nudge)
-```
-
-Nudge types include:
-- **Social proof**: "87% of students on your route take the train"
-- **Loss framing**: "You're losing €450/month on hidden car costs"
-- **Commitment device**: "Try PT for 1 week — free ride back if you don't like it"
-- **Streak reward**: "5-day green streak! Don't break it!"
-- **Anchoring**: "Car: €510/mo vs PT: €55/mo — that's €5,460/yr saved"
 
 ---
 
