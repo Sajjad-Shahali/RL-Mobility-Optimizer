@@ -92,26 +92,26 @@ export default function CarpoolScreen({ onNavigate, onFeedback }) {
       {/* Same OD Input layout as Route Planner */}
       <Card className="od-input-card">
         <div className="od-input-layout">
-          <div className="od-inputs">
+          <div className="od-fields-col">
             <div className="od-input-row">
               <span className="od-dot green" />
               <div className="od-input-field">
-                <label>From</label>
-                <input type="text" value={fromInput} onChange={(e) => setFromInput(e.target.value)} placeholder="Enter origin..." />
+                <label>FROM</label>
+                <input type="text" value={fromInput} onChange={(e) => setFromInput(e.target.value)} placeholder="Origin..." />
               </div>
+            </div>
+            <div className="od-swap-center">
+              <button className="od-swap-btn" onClick={() => { const tmp = fromInput; setFromInput(toInput); setToInput(tmp); }} title="Swap">{"\u21C5"}</button>
             </div>
             <div className="od-input-row">
               <span className="od-dot blue" />
               <div className="od-input-field">
-                <label>To</label>
-                <input type="text" value={toInput} onChange={(e) => setToInput(e.target.value)} placeholder="Enter destination..." />
+                <label>TO</label>
+                <input type="text" value={toInput} onChange={(e) => setToInput(e.target.value)} placeholder="Destination..." />
               </div>
             </div>
           </div>
-          <div className="od-side-actions">
-            <button className="od-swap-btn" onClick={() => { const tmp = fromInput; setFromInput(toInput); setToInput(tmp); }} title="Swap">{"\u21C5"}</button>
-            <LocationPickerMap onFromChange={handleMapFrom} onToChange={handleMapTo} accentColor="#7c3aed" />
-          </div>
+          <LocationPickerMap onFromChange={handleMapFrom} onToChange={handleMapTo} accentColor="#7c3aed" />
         </div>
         <div className="od-time-row">
           <div className="cp-depart-field">

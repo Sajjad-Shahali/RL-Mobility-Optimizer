@@ -37,6 +37,13 @@ export default function LocationPickerMap({ onFromChange, onToChange, accentColo
   const [expanded, setExpanded] = useState(false);
   const [fromName, setFromName] = useState(null);
   const [toName, setToName] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  // Auto-hide overlay after 1.5s
+  useEffect(() => {
+    const timer = setTimeout(() => setShowOverlay(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleMapClick = useCallback(
     (e) => {
@@ -124,6 +131,14 @@ export default function LocationPickerMap({ onFromChange, onToChange, accentColo
         <div className="lp-pick-hint" style={{ borderColor: accentColor }}>
           <span className="lp-dot green" />
           {"\u{1F4CD}"} Pick on map
+        </div>
+      )}
+
+      {/* Clickable overlay hint (1.5s) */}
+      {!expanded && showOverlay && (
+        <div className="lp-tap-overlay">
+          <span className="lp-tap-icon">{"\u{1F446}"}</span>
+          <span>Tap to pick location</span>
         </div>
       )}
 

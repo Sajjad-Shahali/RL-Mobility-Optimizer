@@ -2665,7 +2665,7 @@ body {
 
 /* ===== ROUTE PLANNER REDESIGN ===== */
 .od-input-card {
-  padding: 12px 14px !important;
+  padding: 10px 10px !important;
   position: relative;
   overflow: visible;
 }
@@ -2673,6 +2673,32 @@ body {
   display: flex;
   gap: 10px;
   position: relative;
+}
+.od-inputs-with-swap {
+  flex: 1;
+  display: flex;
+  gap: 0;
+  min-width: 0;
+}
+.od-fields-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+.od-swap-center {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 3px;
+  margin: -2px 0;
+}
+.od-swap-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  flex-shrink: 0;
 }
 .od-inputs {
   flex: 1;
@@ -2699,10 +2725,11 @@ body {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  padding: 7px 10px;
-  font-size: 12px;
+  padding: 6px 8px;
+  font-size: 11px;
   background: var(--surface-2);
   font-family: inherit;
+  box-sizing: border-box;
 }
 .od-input-field input:focus {
   outline: none;
@@ -2714,26 +2741,23 @@ body {
   align-items: center;
   padding: 2px 0 2px 16px;
 }
-.od-side-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
 .od-swap-btn {
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  font-size: 13px;
+  width: 26px;
+  height: 26px;
+  top: 6%;
+  right: 5%;
+  position: relative;
+  font-size: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
   flex-shrink: 0;
+  color: #64748b;
 }
 .od-swap-btn:hover {
   background: #dcfce7;
@@ -2761,8 +2785,8 @@ body {
 /* ===== LOCATION PICKER MAP (shared) ===== */
 .location-picker-wrap {
   position: relative;
-  width: 80px;
-  height: 70px;
+  width: 130px;
+  height: 120px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   overflow: hidden;
@@ -2887,6 +2911,37 @@ body {
   transform: translateX(-50%) scale(0.95);
 }
 
+/* Tap-to-pick overlay (fades out after 1.5s) */
+.lp-tap-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  z-index: 6;
+  pointer-events: none;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  animation: lpOverlayFade 1.5s ease-in forwards;
+}
+.lp-tap-icon {
+  font-size: 20px;
+  animation: lpTapPulse 0.8s ease-in-out infinite;
+}
+@keyframes lpOverlayFade {
+  0%, 60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes lpTapPulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
 /* Carpool departure field */
 .cp-depart-field {
   display: flex;
@@ -2931,7 +2986,7 @@ body {
 .tsp-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,.4);
   z-index: 2000;
   display: flex;
   align-items: flex-end;
@@ -2947,7 +3002,7 @@ body {
   border-radius: 20px 20px 0 0;
   width: 100%;
   max-width: 400px;
-  padding: 0 0 20px;
+  padding: 0 0 28px;
   position: relative;
   animation: tspSlideUp 0.3s cubic-bezier(.4,0,.2,1);
 }
@@ -2955,11 +3010,18 @@ body {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
+.tsp-handle {
+  width: 36px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 4px;
+  margin: 10px auto 0;
+}
 .tsp-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px 10px;
+  padding: 14px 20px 8px;
   font-size: 16px;
   font-weight: 700;
   color: var(--text-dark);
@@ -2970,70 +3032,66 @@ body {
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  padding: 4px 8px;
 }
 .tsp-wheels {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 190px;
+  height: 200px;
   position: relative;
   gap: 0;
+  margin: 0 auto;
+  overflow: hidden;
 }
 .tsp-column {
-  width: 70px;
+  width: 72px;
   height: 100%;
   position: relative;
   overflow: hidden;
+  /* Fade edges */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
 }
 .tsp-scroll {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 .tsp-scroll::-webkit-scrollbar { display: none; }
-.tsp-spacer {
-  height: 76px;
-}
 .tsp-item {
-  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  font-weight: 500;
-  color: #cbd5e1;
-  cursor: pointer;
-  transition: all 0.15s;
-  scroll-snap-align: center;
-  user-select: none;
-}
-.tsp-item.active {
   color: var(--text-dark);
-  font-weight: 700;
-  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.12s, opacity 0.12s;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
 }
 .tsp-colon {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-dark);
-  padding: 0 4px;
+  padding: 0 6px;
   line-height: 1;
-  margin-top: -2px;
+  align-self: center;
 }
-.tsp-highlight {
+.tsp-highlight-row {
   position: absolute;
-  top: 50%;
+  top: 56%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 170px;
-  height: 40px;
+  width: 180px;
+  height: 42px;
   border-top: 2px solid;
   border-bottom: 2px solid;
-  border-radius: 0;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.4;
+  border-radius: 0;
 }
 
 .od-time-row {
