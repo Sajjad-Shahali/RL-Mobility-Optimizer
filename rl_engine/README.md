@@ -1,99 +1,151 @@
-# MoveWise RL Engine 🧠🚌
+﻿# MoveWise RL Engine (rl_engine)
 
-> **Reinforcement Learning for Behaviorally-Aware MaaS Route Recommendation**  
-> NEXUS 2026 — Politecnico di Torino
+Python backend for route recommendation, behavior simulation, and API serving.
+This module contains the reinforcement learning logic that powers MoveWise decisions.
 
-## Overview
+## Purpose
 
-This module implements a complete RL engine that powers the MoveWise MaaS super-app. It uses a **Deep Q-Network (DQN)** to learn optimal recommendations that gradually shift car-dependent users toward sustainable multimodal transport.
+The RL engine models behavior shift from car-heavy travel to multimodal travel using:
+- generalized cost modeling,
+- a DQN-based policy,
+- acceptance dynamics (habit + nudges + context),
+- phased adoption constraints.
 
-### Key Features
+It supports both offline training and online serving via FastAPI.
 
-| Feature | Implementation |
-|---------|---------------|
-| **Generalized Cost** | Multi-component GC with context-dependent VOT, Prospect Theory (μ=2.25), weather/peak adjustments |
-| **Behavioral Model** | HUR (Habit-Utility-Regret) acceptance model with habit decay H_t = H₀·e^{-αt} |
-| **State Space** | 18-dimensional (habit, eco-sensitivity, loss aversion, phase, weather, trip type, engagement...) |
-| **Action Space** | Compound actions: 7 transport modes × 7 nudge types = 49 actions |
-| **Reward** | 5-component: −[w₁·GC + w₂·CO₂ + w₃·Ψ_behavior + w₄·Φ_constraints] + w₅·Revenue |
-| **Phased Adoption** | 4-phase progressive mode introduction (C10 constraint) |
-| **Nudge Selection** | Separate DQN network for personalized nudge optimization |
+## Tech Stack
 
-## Architecture
+- Python 3.10+
+- PyTorch (DQN models)
+- NumPy
+- FastAPI + Uvicorn
+- Matplotlib (training report PDF)
 
-```
+## Core Modules
+
+```text
 rl_engine/
-├── __init__.py           # Module exports
-├── config.py             # Mode profiles, user profiles, hyperparameters
-├── generalized_cost.py   # Full GC computation with Prospect Theory
-├── environment.py        # MDP environment with HUR behavioral model
-├── agent.py              # Double DQN agent with replay buffer
-├── train.py              # Training pipeline + visualization
-├── api.py                # FastAPI backend for React frontend
-└── requirements.txt      # Python dependencies
+  config.py             # user profile, mode definitions, rewards, RL hyperparameters
+  generalized_cost.py   # generalized cost decomposition and ranking
+  environment.py        # MDP environment and transition simulation
+  agent.py              # DQN agent, replay buffer, target network
+  train.py              # training loop, evaluation, plot generation
+  api.py                # REST API consumed by movewise-react
+  requirements.txt
 ```
 
-## Quick Start
+## RL Formulation (Current Implementation)
 
-### 1. Install Dependencies
+### State
 
-```bash
-pip install -r rl_engine/requirements.txt
-```
+18-dimensional vector including:
+- behavioral terms: habit, eco-sensitivity, loss aversion, car status,
+- context: phase, week, trip type, weather, time of day,
+- engagement: green streak, points, satisfaction, app engagement,
+- budget and response tracking.
 
-### 2. Train the Agent
+### Action
+
+Compound action space:
+- 7 transport modes x 7 nudge types = 49 actions.
+
+### Reward
+
+Weighted combination of:
+- generalized cost,
+- emissions effect,
+- behavior penalty,
+- constraint penalties,
+- platform revenue,
+- plus sustainable-choice and nudge bonuses.
+
+### Transition
+
+- user recommendation acceptance is probabilistic,
+- rejected recommendations fall back to car behavior,
+- habit decays with repeated green trips,
+- phase progresses when behavioral milestones are met,
+- weekly schedule simulates commute/errand/leisure trips.
+
+## Training Flow
+
+`train.py` pipeline:
+
+1. Build environment + agent.
+2. Roll out episodes and store transitions in replay buffer.
+3. Train DQN on mini-batches (Double DQN target logic).
+4. Decay epsilon and track episode metrics.
+5. Evaluate trained policy without exploration.
+6. Generate `RL_Training_Results.pdf`.
+
+### Run Training
+
+From repo root:
 
 ```bash
 python -m rl_engine.train
 ```
 
-This runs the full pipeline:
-1. **GC Analysis** — Ranks transport modes for each phase
-2. **DQN Training** — 500 episodes, 7-week simulation per episode
-3. **Evaluation** — 50 episodes with no exploration
-4. **Visualization** — Saves `RL_Training_Results.pdf`
+Artifacts saved in this folder:
+- `movewise_dqn.pth` (model checkpoint)
+- `RL_Training_Results.pdf` (plots)
 
-### 3. Start the API Server
+## API Flow
+
+`api.py` exposes RL outputs for the frontend.
+
+Typical runtime flow:
+1. API starts and initializes environment and agent.
+2. If `movewise_dqn.pth` exists, weights are loaded.
+3. Frontend requests routes/nudges/profile.
+4. Trip submissions update environment state in memory.
+
+### Run API
+
+From this folder:
 
 ```bash
-cd rl_engine && uvicorn api:app --reload --port 8000
+uvicorn api:app --reload --port 8000
 ```
 
-API endpoints:
-- `GET /api/routes/{trip_type}` — Ranked routes with GC scores
-- `GET /api/nudge/select` — Optimal nudge for current state
-- `GET /api/user/profile` — Behavioral parameters
-- `POST /api/user/trip` — Record a trip, get updated state
-- `GET /api/simulation/run` — Run training demo
+### Main Endpoints
 
-## Results
+- `GET /api/health`
+- `GET /api/routes/{trip_type}`
+- `GET /api/nudge/select`
+- `GET /api/nudge/all`
+- `GET /api/user/profile`
+- `GET /api/carbon`
+- `GET /api/adoption`
+- `POST /api/user/trip`
+- `GET /api/simulation/run`
+- `GET /api/simulation/status`
 
-Training on Giuseppe's profile (23-year-old student, Giaveno → Politecnico, 11 km):
+## Setup
 
-| Metric | Before | After | Change |
-|--------|--------|-------|--------|
-| Green Trip Ratio | 0% | **70.5%** | ↑ 70.5pp |
-| CO₂ Saved | 0 kg | **85.4 kg** | per 7-week sim |
-| Car Habit Strength | 0.70 | **0.10** | ↓ 85.7% |
-| Adoption Phase | 0 | **3** | Full adoption |
-| User Satisfaction | 0.50 | **0.52** | Maintained |
+Install dependencies:
 
-## Theory Reference
+```bash
+pip install -r rl_engine/requirements.txt
+```
 
-Based on `RL_MaaS_Formulation_v3.tex` (March 2026):
-- **Generalized Cost**: §5 / Eq. 1 (multi-component with context-dependent VOT, Prospect Theory)
-- **Habit Decay**: §6 / Eq. 2 (H_t = H₀·e^{-αt}, HUR behavioral model)
-- **Enhanced State**: §7.1 / Eq. 3 (18-dim including app interaction data)
-- **Reward Function**: §7.3 / Eq. 4 (5-component: GC + CO₂ + Ψ_behavior + Φ_constraints + Revenue)
-- **Nudge Selection**: §4 / Eq. 5 (separate Q-network, 7 nudge types from Thaler & Sunstein)
-- **Data Quality**: §7.4 / Eq. 6 (C11 constraint — QR observability)
-- **Constraints**: C1–C11 (budget, time, capacity, phase C10, data quality C11)
-- **Behavior Change**: §4 (4-layer toolkit: Nudges, Gamification, Economics, Education)
+## Integration With Frontend
 
-## Integration with React Frontend
+1. Start API on port 8000.
+2. In `movewise-react`, replace mock-data reads with fetch calls to `/api/...`.
+3. Keep payload shapes aligned with frontend component expectations.
 
-The FastAPI backend (`api.py`) provides REST endpoints that replace the hardcoded `mockData.js` in Sajjad's React app. Connect by updating the frontend to fetch from `http://localhost:8000/api/` instead of using static data.
+## Configuration
 
----
+Most tunables are in `config.py`:
+- mode profiles and costs,
+- user profile parameters,
+- reward weights,
+- RL hyperparameters (gamma, epsilon, buffer size, batch size, etc.).
 
-*NEXUS 2026 — Team [NUMBER] — Politecnico di Torino*
+## Developer Notes
+
+- Use deterministic seeds for reproducible experiments.
+- Keep reward terms normalized when adjusting weights.
+- Validate endpoint contracts after any environment/state schema changes.
+- If behavior changes, retrain and regenerate `movewise_dqn.pth`.
