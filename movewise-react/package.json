@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "package": "vite build && pkg server.cjs --target node18-win-x64 --output MoveWise.exe --compress GZip && echo Exe built — zip MoveWise.exe + dist/ folder to distribute"
+    "package": "vite build && pkg server.cjs --target node18-win-x64 --output ../MoveWise.exe --compress GZip && xcopy /E /I /Y dist ..\\dist && echo Exe + dist built at project root"
   },
   "dependencies": {
     "@react-three/drei": "^9.117.0",
