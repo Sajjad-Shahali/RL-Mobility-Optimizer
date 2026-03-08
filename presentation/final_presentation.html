@@ -206,9 +206,9 @@ h3{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;c
 .bg-grid::before{content:'';position:absolute;inset:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 20%,rgba(8,145,178,.03) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(5,150,105,.02) 0%,transparent 60%)}
 
 /* ─── Scrollbar ─── */
-.scroll-col{max-height:calc(100vh - 80px);overflow:hidden;scrollbar-width:none}
-.scroll-col::-webkit-scrollbar{display:none}
-.scroll-col::-webkit-scrollbar-thumb{display:none}
+.scroll-col{max-height:calc(100vh - 80px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bg4) transparent}
+.scroll-col::-webkit-scrollbar{width:4px}
+.scroll-col::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
 
 /* ─── Print / PDF Export ─── */
 @media print {
