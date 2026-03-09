@@ -22,6 +22,7 @@ The project was developed as part of Prof. Pronello's Intelligent Transportation
 
 Full source code, live demo, and interactive presentation:
 https://github.com/aliivaezii/RL-Mobility-Optimizer
+https://aliivaezii.github.io/RL-Mobility-Optimizer/
 
 #MobilityAsAService #MaaS #ReinforcementLearning #SustainableMobility #OpenSource #React #Python #UrbanTransport #SmartCities #PolitecnicodiTorino #NEXUS2026 #AI #MachineLearning #GreenTransport
 
