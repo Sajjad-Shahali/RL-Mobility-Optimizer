@@ -1119,36 +1119,55 @@ async function exportPDF() {
   const uiEls = ['exportBtn','nav','progress','slideLabel'].map(id => document.getElementById(id)).filter(Boolean);
   uiEls.forEach(el => { el.dataset.prevDisplay = el.style.display; el.style.display = 'none'; });
 
+  // Inject export-mode style: kill transitions, force exact sizing, hide overflow
+  const exportStyle = document.createElement('style');
+  exportStyle.textContent = `
+    .export-mode .slide { transition: none !important; }
+    .export-mode .slide.active { opacity: 1 !important; pointer-events: auto !important; }
+    .export-mode .slide:not(.active) { opacity: 0 !important; pointer-events: none !important; }
+    body.export-mode { overflow: hidden !important; width: 100vw !important; max-width: 100vw !important; }
+    body.export-mode #slides { overflow: hidden !important; width: 100vw !important; max-width: 100vw !important; }
+  `;
+  document.head.appendChild(exportStyle);
+  document.body.classList.add('export-mode');
+
   try {
     const { jsPDF } = window.jspdf;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [vw, vh], hotfixes: ['px_scaling'] });
+    // Use fixed 1920x1080 for consistent PDF output regardless of viewport
+    const W = 1920;
+    const H = 1080;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], hotfixes: ['px_scaling'] });
     const savedCurrent = current;
+    const slidesContainer = document.getElementById('slides');
 
     for (let i = 0; i < totalSlides; i++) {
+      // Directly set classes — no goTo, no transitioning guard
       slides.forEach(s => s.classList.remove('active'));
       slides[i].classList.add('active');
-      // Allow time for CSS transitions + chart redraws
-      await new Promise(r => setTimeout(r, 1000));
+      // Wait for charts/images to settle
+      await new Promise(r => setTimeout(r, 800));
 
-      const canvas = await html2canvas(document.body, {
-        scale: 2,
+      const canvas = await html2canvas(slidesContainer, {
+        scale: 1,
         useCORS: true,
         backgroundColor: '#ffffff',
-        width: vw,
-        height: vh,
-        windowWidth: vw,
-        windowHeight: vh,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        scrollX: 0,
+        scrollY: 0,
+        x: 0,
+        y: 0,
         logging: false,
-        allowTaint: true
+        allowTaint: true,
+        removeContainer: true
       });
 
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
-      if (i > 0) pdf.addPage([vw, vh], 'landscape');
-      pdf.addImage(imgData, 'JPEG', 0, 0, vw, vh);
+      if (i > 0) pdf.addPage([W, H], 'landscape');
+      pdf.addImage(imgData, 'JPEG', 0, 0, W, H);
     }
 
+    // Restore original slide
     slides.forEach(s => s.classList.remove('active'));
     slides[savedCurrent].classList.add('active');
     document.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('active', j === savedCurrent));
@@ -1160,6 +1179,8 @@ async function exportPDF() {
     alert('PDF export failed: ' + err.message);
   }
 
+  document.body.classList.remove('export-mode');
+  exportStyle.remove();
   uiEls.forEach(el => { el.style.display = el.dataset.prevDisplay || ''; delete el.dataset.prevDisplay; });
   btn.classList.remove('exporting');
   btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg> Export PDF';
