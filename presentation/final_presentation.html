@@ -1125,34 +1125,33 @@ async function exportPDF() {
     .export-mode .slide { transition: none !important; }
     .export-mode .slide.active { opacity: 1 !important; pointer-events: auto !important; }
     .export-mode .slide:not(.active) { opacity: 0 !important; pointer-events: none !important; }
-    body.export-mode { overflow: hidden !important; width: 100vw !important; max-width: 100vw !important; }
-    body.export-mode #slides { overflow: hidden !important; width: 100vw !important; max-width: 100vw !important; }
+    body.export-mode { overflow: hidden !important; }
+    body.export-mode #slides { overflow: hidden !important; }
   `;
   document.head.appendChild(exportStyle);
   document.body.classList.add('export-mode');
 
   try {
     const { jsPDF } = window.jspdf;
-    // Use fixed 1920x1080 for consistent PDF output regardless of viewport
-    const W = 1920;
-    const H = 1080;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [W, H], hotfixes: ['px_scaling'] });
     const savedCurrent = current;
     const slidesContainer = document.getElementById('slides');
 
+    // Use ACTUAL viewport dimensions for both capture and PDF page — no stretching
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const pdf = new jsPDF({ orientation: (vw >= vh ? 'landscape' : 'portrait'), unit: 'px', format: [vw, vh], hotfixes: ['px_scaling'] });
+
     for (let i = 0; i < totalSlides; i++) {
-      // Directly set classes — no goTo, no transitioning guard
       slides.forEach(s => s.classList.remove('active'));
       slides[i].classList.add('active');
-      // Wait for charts/images to settle
       await new Promise(r => setTimeout(r, 800));
 
       const canvas = await html2canvas(slidesContainer, {
-        scale: 1,
+        scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: vw,
+        height: vh,
         scrollX: 0,
         scrollY: 0,
         x: 0,
@@ -1162,9 +1161,9 @@ async function exportPDF() {
         removeContainer: true
       });
 
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
-      if (i > 0) pdf.addPage([W, H], 'landscape');
-      pdf.addImage(imgData, 'JPEG', 0, 0, W, H);
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      if (i > 0) pdf.addPage([vw, vh], (vw >= vh ? 'landscape' : 'portrait'));
+      pdf.addImage(imgData, 'JPEG', 0, 0, vw, vh);
     }
 
     // Restore original slide
