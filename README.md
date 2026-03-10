@@ -6,6 +6,8 @@
 [![React 18](https://img.shields.io/badge/React-18.3-61dafb.svg)](https://react.dev/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ed.svg)](https://docs.docker.com/compose/)
 
+🌐 **[Live Demo](https://sajjad-shahali.github.io/RL-Mobility-Optimizer/)** | 📊 **[Presentation](https://sajjad-shahali.github.io/RL-Mobility-Optimizer/presentation/final_presentation.html)**
+
 > **NEXUS 2026 Hackathon** | Politecnico di Torino  
 > React + Vite + Three.js + Leaflet/OpenStreetMap
 
