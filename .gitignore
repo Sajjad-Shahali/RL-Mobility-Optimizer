@@ -29,3 +29,24 @@ rl_engine/RL_Training_Results.pdf
 
 # Node.js (for movewise-react/)
 node_modules/
+
+# Binaries and archives (use GitHub Releases instead)
+*.exe
+*.zip
+
+# Competition/hackathon materials
+Competition matirial/
+
+# LinkedIn drafts
+linkedin/
+
+# Old presentation files in public
+movewise-react/public/PRESENTATION/
+
+# Presentation build artifacts (keep only final_presentation.html and logo.jpg)
+presentation/screenshot/
+presentation/*.pdf
+presentation/*.py
+presentation/*.json
+presentation/*.tex
+presentation/NEXUS_*.html
