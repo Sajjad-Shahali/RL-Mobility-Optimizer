@@ -1,7 +1,7 @@
 # MoveWise RL Engine — Python dependencies
 # Install: pip install -r requirements.txt
 
-numpy>=1.21.0
+numpy>=2.4.4
 torch>=2.0.0
 matplotlib>=3.5.0
 fastapi>=0.100.0
