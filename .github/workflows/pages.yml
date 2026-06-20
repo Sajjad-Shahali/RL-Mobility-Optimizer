@@ -40,7 +40,7 @@ jobs:
         run: cp -r ../presentation dist/presentation
         working-directory: movewise-react
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: movewise-react/dist
 
