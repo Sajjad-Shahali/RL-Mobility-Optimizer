@@ -3,7 +3,7 @@
 
 numpy>=1.21.0
 torch>=2.0.0
-matplotlib>=3.5.0
+matplotlib>=3.10.9
 fastapi>=0.100.0
 uvicorn>=0.20.0
 pydantic>=2.0.0
